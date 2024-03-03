@@ -6,6 +6,7 @@ An IndexedDB wrapper for Effect.
 
 ```ts
 import * as IndexedDB from "effect-idb";
+import { Effect } from "effect";
 
 Effect.gen(function* (_) {
  const idb = yield* _(IndexedDB.IndexedDB);
