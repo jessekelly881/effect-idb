@@ -40,6 +40,7 @@
     "bun": "^1.0.7",
     "eslint": "^8.51.0",
     "eslint-plugin-deprecation": "^2.0.0",
+    "fake-indexeddb": "^5.0.2",
     "fast-check": "^3.14.0",
     "husky": "^9.0.7",
     "jsdom": "^24.0.0",
