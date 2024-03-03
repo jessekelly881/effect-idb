@@ -2,10 +2,10 @@
  * @since 1.0.0
  */
 
+import * as Error from "@/Error";
+import * as Store from "@/Store";
+import { wrapRequest } from "@/utils";
 import { Effect, ReadonlyRecord } from "effect";
-import * as Error from "../Error";
-import * as Store from "../Store";
-import { wrapRequest } from "../utils";
 
 export const transaction =
 	(idb: IDBDatabase) =>

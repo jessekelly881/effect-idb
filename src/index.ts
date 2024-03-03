@@ -1,7 +1,7 @@
-import { Console, Context, Effect, Layer, Scope } from "effect";
-import * as Error from "./Error";
-import * as Store from "./Store";
-import { open } from "./internal/open";
+import * as Error from "@/Error";
+import * as Store from "@/Store";
+import { open } from "@/internal/open";
+import { Context, Effect, Layer, Scope } from "effect";
 
 export interface Database {
 	transaction: <
@@ -43,29 +43,4 @@ export const layer = Layer.succeed(
 	IndexedDB.of({
 		open
 	})
-);
-
-Effect.gen(function* (_) {
-	const idb = yield* _(IndexedDB);
-	const db = yield* _(
-		idb.open({
-			name: "store21",
-			version: 2,
-			onUpgrade: (db) =>
-				Effect.gen(function* (_) {
-					yield* _(db.createObjectStore("store").pipe(Effect.orDie));
-				})
-		})
-	);
-	yield* _(
-		db.transaction(["store"], ({ store }) =>
-			Effect.all([store.add({ a: 1 }, "a")])
-		)
-	);
-}).pipe(
-	Effect.provide(layer),
-	Effect.scoped,
-	Effect.catchAllDefect((err) => Console.log(err)),
-	Effect.andThen(() => Console.log("Finished")),
-	Effect.runFork
 );

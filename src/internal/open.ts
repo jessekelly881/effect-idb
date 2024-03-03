@@ -2,10 +2,10 @@
  * @since 1.0.0
  */
 
+import * as Error from "@/Error";
+import type { Database, Update } from "@/index";
+import { transaction } from "@/internal//transaction";
 import { Effect, Scope } from "effect";
-import * as Error from "../Error";
-import type { Database, Update } from "../main";
-import { transaction } from "./transaction";
 
 const update = (db: IDBDatabase): Update => ({
 	createObjectStore: (name) =>

@@ -2,8 +2,8 @@
  * @since 1.0.0
  */
 
+import * as Error from "@/Error";
 import { Effect } from "effect";
-import * as Error from "./Error";
 
 /**
  * Convers an IDBRequest into an Effect

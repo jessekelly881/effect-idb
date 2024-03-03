@@ -73,7 +73,7 @@ export type Return<T> = T extends Action
 export type ReturnMap<T> = T extends Action[]
 	? {
 			[K in keyof T]: Return<T[K]>;
-	  }
+		}
 	: null;
 
 export interface Store {
