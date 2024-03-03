@@ -7,6 +7,7 @@ import * as Store from "@/Store";
 import { wrapRequest } from "@/utils";
 import { Effect, ReadonlyRecord } from "effect";
 
+/** @internal */
 export const transaction =
 	(idb: IDBDatabase) =>
 	<I, R, Stores extends string[], Actions extends Store.Action[]>(

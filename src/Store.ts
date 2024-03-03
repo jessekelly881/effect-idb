@@ -4,6 +4,7 @@
 
 import { Effect } from "effect";
 
+/** @internal */
 export declare namespace Action {
 	/**
 	 * @since 1.0.0
@@ -15,22 +16,30 @@ export declare namespace Action {
 	}
 }
 
+/** @internal */
 export interface Add extends Action.Proto {
 	_op: "Add";
 	value: unknown;
 	key: IDBValidKey;
 }
 
+/** @internal */
 export interface Get extends Action.Proto {
 	_op: "Get";
 	key: string;
 }
 
+/** @internal */
 export interface Delete extends Action.Proto {
 	_op: "Delete";
 	key: IDBValidKey;
 }
 
+/**
+ * A Database Action
+ *
+ * @since 1.0.0
+ */
 export type Action = Add | Get | Delete;
 
 /**
@@ -66,22 +75,34 @@ export {
 	_get as get
 };
 
+/**
+ * @since 1.0.0
+ */
 export type Return<T> = T extends Action
 	? { Add: void; Get: unknown; Delete: void }[T["_op"]]
 	: never;
 
+/**
+ * @since 1.0.0
+ */
 export type ReturnMap<T> = T extends Action[]
 	? {
 			[K in keyof T]: Return<T[K]>;
 		}
 	: null;
 
+/**
+ * @since 1.0.0
+ */
 export interface Store {
 	get: ReturnType<typeof _get>;
 	add: ReturnType<typeof add>;
 	delete: ReturnType<typeof _delete>;
 }
 
+/**
+ * @since 1.0.0
+ */
 export const createStore = (store: string): Store => ({
 	add: add(store),
 	get: _get(store),

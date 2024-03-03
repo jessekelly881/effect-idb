@@ -7,6 +7,7 @@ import type { Database, Update } from "@/index";
 import { transaction } from "@/internal//transaction";
 import { Effect, Scope } from "effect";
 
+/** @internal */
 const update = (db: IDBDatabase): Update => ({
 	createObjectStore: (name) =>
 		Effect.try({
@@ -18,6 +19,7 @@ const update = (db: IDBDatabase): Update => ({
 		})
 });
 
+/** @internal */
 export const open = ({
 	name,
 	onUpgrade,
