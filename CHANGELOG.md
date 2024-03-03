@@ -1,5 +1,11 @@
 # @kellyjesse881/empty
 
+## 0.0.3
+
+### Patch Changes
+
+- 3607b48: fixed build
+
 ## 0.0.2
 
 ### Patch Changes
