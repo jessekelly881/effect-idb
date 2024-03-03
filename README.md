@@ -2,6 +2,8 @@
 
 An IndexedDB wrapper for Effect.
 
+## Transactions
+
 ```ts
 import * as IndexedDB from "effect-idb";
 
