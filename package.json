@@ -19,7 +19,7 @@
     "indexed-db"
   ],
   "scripts": {
-    "build": "tsup src/**/*.ts --format cjs,esm --dts",
+    "build": "tsup src/*.ts --format cjs,esm --dts",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "dev": "vitest --bail 1 --reporter=dot",
     "test": "vitest run --bail 1 --reporter=basic",

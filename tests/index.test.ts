@@ -43,7 +43,7 @@ describe("IndexedDB", () => {
 			yield* _(testDb);
 		}));
 
-	test("read/write", (ctx) =>
+	test("add, get", (ctx) =>
 		Effect.gen(function* (_) {
 			const db = yield* _(testDb);
 			const res = yield* _(
