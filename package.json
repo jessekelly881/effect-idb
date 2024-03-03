@@ -1,0 +1,47 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
+  "name": "@kellyjesse881/empty",
+  "version": "0.0.4",
+  "description": "",
+  "private": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "homepage": "",
+  "tags": [
+    "typescript"
+  ],
+  "keywords": [
+    "typescript"
+  ],
+  "scripts": {
+    "build": "tsup src/**/*.ts --format cjs,esm --dts",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "dev": "vitest --bail 1 --reporter=dot",
+    "test": "vitest run --bail 1 --reporter=basic",
+    "ci": "pnpm run lint && pnpm run test && pnpm run build",
+    "publish": "changeset publish",
+    "docs": "docgen",
+    "gen": "plop"
+  },
+  "author": "Jesse Kelly",
+  "license": "MIT",
+  "devDependencies": {
+    "@changesets/cli": "^2.26.0",
+    "@effect/docgen": "^0.3.6",
+    "@fast-check/vitest": "^0.1.0",
+    "@types/node": "^20.8.4",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "bun": "^1.0.7",
+    "eslint": "^8.51.0",
+    "eslint-plugin-deprecation": "^2.0.0",
+    "fast-check": "^3.14.0",
+    "husky": "^9.0.7",
+    "jsdom": "^24.0.0",
+    "plop": "^4.0.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.2.2",
+    "vitest": "^1.0.1"
+  }
+}
