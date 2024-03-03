@@ -18,6 +18,10 @@
     "effect-ts",
     "indexed-db"
   ],
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
   "scripts": {
     "build": "tsup src/*.ts --format cjs,esm --dts",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
