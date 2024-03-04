@@ -36,8 +36,7 @@ jobs:
                   cache: "pnpm"
 
             - run: pnpm install --no-frozen-lockfile
-            - run: mkdir build
-            - run: mkdir build/esm
+            - run: mkdir -p build/esm
             - run: pnpm run build
             - name: Create Release Pull Request or Publish
               id: changesets
