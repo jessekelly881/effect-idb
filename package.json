@@ -50,7 +50,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.23.3",
     "@changesets/cli": "^2.26.0",
     "@effect/build-utils": "^0.7.6",
-    "@effect/docgen": "^0.3.6",
+    "@effect/docgen": "^0.3.8",
     "@effect/dtslint": "^0.0.4",
     "@fast-check/vitest": "^0.1.0",
     "@types/node": "^20.8.4",
