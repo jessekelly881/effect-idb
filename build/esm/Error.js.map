@@ -1,1 +1,0 @@
-{"version":3,"file":"Error.js","names":["effect_1","require","IndexedDBError","Data","TaggedError","exports"],"sources":["../../src/Error.ts"],"sourcesContent":[null],"mappings":";;;;;;AAGA,MAAAA,QAAA,gBAAAC,OAAA;AAKA,MAAaC,cAAe,SAAQF,QAAA,CAAAG,IAAI,CAACC,WAAW,CAAC,gBAAgB,CAEnE;AAFFC,OAAA,CAAAH,cAAA,GAAAA,cAAA","ignoreList":[]}
