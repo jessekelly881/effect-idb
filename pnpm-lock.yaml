@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@effect/build-utils':
+    specifier: ^0.7.6
+    version: 0.7.6
   '@effect/platform':
     specifier: ^0.46.3
     version: 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
@@ -283,6 +286,12 @@ packages:
       human-id: 1.0.2
       prettier: 2.8.8
     dev: true
+
+  /@effect/build-utils@0.7.6:
+    resolution: {integrity: sha512-VAqZhs4t54FD6Y47/LB9LI/qvNhbj6MhsycM4BY5M2oln8SCZsKGHBV8cmvlYHXmrx1+YWn7tvlgGidWP8K6+A==}
+    engines: {node: '>=16.17.1'}
+    hasBin: true
+    dev: false
 
   /@effect/docgen@0.3.8(tsx@4.7.1)(typescript@5.3.3):
     resolution: {integrity: sha512-yg777LXbKjgpHS+PC2dXS5tHTWRXQoCgcWJtM7CsNkZ2mefvmO7aufiRCaWYDnCF58otv10Tijuyanii4b2cxQ==}

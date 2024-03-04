@@ -18,12 +18,8 @@
     "effect-ts",
     "indexed-db"
   ],
-  "publishConfig": {
-    "access": "public",
-    "directory": "dist"
-  },
   "scripts": {
-    "build": "tsup src/*.ts --format cjs,esm --dts",
+    "build": "build-utils prepare-v2; tsup src/*.ts --format cjs,esm --dts -d dist/dist; build-utils pack-v2",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "dev": "vitest --bail 1 --reporter=dot",
     "test": "vitest run --bail 1 --reporter=basic",
@@ -31,6 +27,14 @@
     "publish": "changeset publish",
     "docs": "docgen",
     "gen": "plop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jessekelly881/effect-idb.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
   },
   "author": "Jesse Kelly",
   "license": "MIT",
@@ -54,6 +58,7 @@
     "vitest": "^1.0.1"
   },
   "dependencies": {
+    "@effect/build-utils": "^0.7.6",
     "@effect/platform": "^0.46.3",
     "effect": "^2.4.1"
   }
