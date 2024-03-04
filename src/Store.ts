@@ -95,9 +95,9 @@ export type ReturnMap<T> = T extends Action[]
  * @since 1.0.0
  */
 export interface Store {
-	get: ReturnType<typeof _get>;
-	add: ReturnType<typeof add>;
-	delete: ReturnType<typeof _delete>;
+	get: (key: string) => Effect.Effect<Get>;
+	add: (value: unknown, key: IDBValidKey) => Effect.Effect<Add>;
+	delete: (key: IDBValidKey) => Effect.Effect<Delete>;
 }
 
 /**
