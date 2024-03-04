@@ -6,6 +6,11 @@ export * as Error from "./Error.js"
 /**
  * @since 1.0.0
  */
+export * as IndexedDB from "./IndexedDB.js"
+
+/**
+ * @since 1.0.0
+ */
 export * as Store from "./Store.js"
 
 /**

@@ -1,5 +1,5 @@
 import * as Error from "@/Error";
-import * as IndexedDB from "@/index";
+import { IndexedDB } from "@/index";
 import { Effect, Scope } from "effect";
 import "fake-indexeddb/auto";
 import { TestContext, describe, it } from "vitest";

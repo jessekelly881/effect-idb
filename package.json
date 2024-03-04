@@ -19,7 +19,8 @@
     "indexed-db"
   ],
   "scripts": {
-    "build": "build-utils prepare-v2; tsup src/*.ts --format cjs,esm --dts -d dist/dist; build-utils pack-v2",
+    "codegen": "build-utils prepare-v2",
+    "build": "pnpm run codegen; tsup src/*.ts --format cjs,esm --dts -d dist/dist; build-utils pack-v2",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "dev": "vitest --bail 1 --reporter=dot",
     "test": "vitest run --bail 1 --reporter=basic",
