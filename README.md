@@ -5,7 +5,7 @@ An IndexedDB wrapper for Effect.
 ## Transactions
 
 ```ts
-import * as IndexedDB from "effect-idb";
+import { IndexedDB } from "effect-idb";
 import { Effect } from "effect";
 
 Effect.gen(function* (_) {
