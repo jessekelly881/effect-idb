@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
   "name": "effect-idb",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "private": false,
   "main": "./dist/index.js",
