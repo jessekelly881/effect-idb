@@ -34,6 +34,9 @@ devDependencies:
   '@effect/docgen':
     specifier: ^0.3.6
     version: 0.3.8(tsx@4.7.1)(typescript@5.3.3)
+  '@effect/dtslint':
+    specifier: ^0.0.4
+    version: 0.0.4(typescript@5.3.3)
   '@fast-check/vitest':
     specifier: ^0.1.0
     version: 0.1.0(vitest@1.3.1)
@@ -561,9 +564,20 @@ packages:
     dependencies:
       doctrine: 3.0.0
       glob: 10.3.10
-      markdown-toc: git@github.com+effect-ts/markdown-toc/4bfeb0f140105440ea0d12df2fa23199cc3ec1d5
+      markdown-toc: github.com/effect-ts/markdown-toc/4bfeb0f140105440ea0d12df2fa23199cc3ec1d5
       prettier: 3.1.1
       tsx: 4.7.1
+      typescript: 5.3.3
+    dev: true
+
+  /@effect/dtslint@0.0.4(typescript@5.3.3):
+    resolution: {integrity: sha512-3aQbc6zNm5yClSEbmJVs3Usyua1XbfqcTR1zkExvsusC3vVCrNTkO6cPY3vp9KnCtlWzbnePyZTv+a2cNzy9Wg==}
+    hasBin: true
+    peerDependencies:
+      typescript: ^5.x
+    dependencies:
+      fs-extra: 11.1.1
+      tslint: 6.1.3(typescript@5.3.3)
       typescript: 5.3.3
     dev: true
 
@@ -1705,6 +1719,11 @@ packages:
       ieee754: 1.2.1
     dev: true
 
+  /builtin-modules@1.1.1:
+    resolution: {integrity: sha512-wxXCdllwGhI2kCC0MnvTGYTMvnVZTvqgypkiTI8Pa5tcz2i6VqsqwYGgqwXji+4RgCzms6EajE4IxiUH6HH8nQ==}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
   /bun@1.0.29:
     resolution: {integrity: sha512-OQfMWb+UxgBA5Fnne/6GPmk3kh9HmECOIGG2P/m97QYmCthKMJlFBF8Q5TC+ayL5TvfVEXZxw7V4yHr1cqGK6w==}
     cpu: [arm64, x64]
@@ -1944,6 +1963,10 @@ packages:
       delayed-stream: 1.0.0
     dev: true
 
+  /commander@2.20.3:
+    resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
+    dev: true
+
   /commander@4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
@@ -2140,6 +2163,11 @@ packages:
   /diff-sequences@29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
+    dev: true
+
+  /diff@4.0.2:
+    resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
+    engines: {node: '>=0.3.1'}
     dev: true
 
   /dir-glob@3.0.1:
@@ -2699,6 +2727,15 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+    dev: true
+
+  /fs-extra@11.1.1:
+    resolution: {integrity: sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==}
+    engines: {node: '>=14.14'}
+    dependencies:
+      graceful-fs: 4.2.11
+      jsonfile: 6.1.0
+      universalify: 2.0.1
     dev: true
 
   /fs-extra@7.0.1:
@@ -3570,6 +3607,14 @@ packages:
       graceful-fs: 4.2.11
     dev: true
 
+  /jsonfile@6.1.0:
+    resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
+    dependencies:
+      universalify: 2.0.1
+    optionalDependencies:
+      graceful-fs: 4.2.11
+    dev: true
+
   /keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
     dependencies:
@@ -3922,6 +3967,13 @@ packages:
   /mixme@0.5.10:
     resolution: {integrity: sha512-5H76ANWinB1H3twpJ6JY8uvAtpmFvHNArpilJAjXRKXSDDLPIMoZArw5SH0q9z+lLs8IrMw7Q2VWpWimFKFT1Q==}
     engines: {node: '>= 8.0.0'}
+    dev: true
+
+  /mkdirp@0.5.6:
+    resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
+    hasBin: true
+    dependencies:
+      minimist: 1.2.8
     dev: true
 
   /mkdirp@3.0.1:
@@ -5250,6 +5302,30 @@ packages:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
     dev: true
 
+  /tslint@6.1.3(typescript@5.3.3):
+    resolution: {integrity: sha512-IbR4nkT96EQOvKE2PW/djGz8iGNeJ4rF2mBfiYaR/nvUWYKJhLwimoJKgjIFEIDibBtOevj7BqCRL4oHeWWUCg==}
+    engines: {node: '>=4.8.0'}
+    deprecated: TSLint has been deprecated in favor of ESLint. Please see https://github.com/palantir/tslint/issues/4534 for more information.
+    hasBin: true
+    peerDependencies:
+      typescript: '>=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >=3.0.0-dev || >= 3.1.0-dev || >= 3.2.0-dev || >= 4.0.0-dev'
+    dependencies:
+      '@babel/code-frame': 7.23.5
+      builtin-modules: 1.1.1
+      chalk: 2.4.2
+      commander: 2.20.3
+      diff: 4.0.2
+      glob: 7.2.3
+      js-yaml: 3.14.1
+      minimatch: 3.1.2
+      mkdirp: 0.5.6
+      resolve: 1.22.8
+      semver: 5.7.2
+      tslib: 1.14.1
+      tsutils: 2.29.0(typescript@5.3.3)
+      typescript: 5.3.3
+    dev: true
+
   /tsup@8.0.2(typescript@5.3.3):
     resolution: {integrity: sha512-NY8xtQXdH7hDUAZwcQdY/Vzlw9johQsaqf7iwZ6g1DOUlFYQ5/AtVAjTvihhEyeRlGo4dLRVHtrRaL35M1daqQ==}
     engines: {node: '>=18'}
@@ -5287,6 +5363,15 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - ts-node
+    dev: true
+
+  /tsutils@2.29.0(typescript@5.3.3):
+    resolution: {integrity: sha512-g5JVHCIJwzfISaXpXE1qvNalca5Jwob6FjI4AoPlqMusJ6ftFE7IkkFoMhVLRgK+4Kx3gkzb8UZK5t5yTTvEmA==}
+    peerDependencies:
+      typescript: '>=2.1.0 || >=2.1.0-dev || >=2.2.0-dev || >=2.3.0-dev || >=2.4.0-dev || >=2.5.0-dev || >=2.6.0-dev || >=2.7.0-dev || >=2.8.0-dev || >=2.9.0-dev || >= 3.0.0-dev || >= 3.1.0-dev'
+    dependencies:
+      tslib: 1.14.1
+      typescript: 5.3.3
     dev: true
 
   /tsutils@3.21.0(typescript@5.3.3):
@@ -5447,6 +5532,11 @@ packages:
   /universalify@0.2.0:
     resolution: {integrity: sha512-CJ1QgKmNg3CwvAv/kOFmtnEN05f0D/cn9QntgNOQlQF9dgvVTHj3t+8JPdjqawCHk7V/KA+fbUqzZ9XWhcqPUg==}
     engines: {node: '>= 4.0.0'}
+    dev: true
+
+  /universalify@2.0.1:
+    resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
+    engines: {node: '>= 10.0.0'}
     dev: true
 
   /update-browserslist-db@1.0.13(browserslist@4.23.0):
@@ -5863,8 +5953,8 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
-  git@github.com+effect-ts/markdown-toc/4bfeb0f140105440ea0d12df2fa23199cc3ec1d5:
-    resolution: {commit: 4bfeb0f140105440ea0d12df2fa23199cc3ec1d5, repo: git@github.com:effect-ts/markdown-toc.git, type: git}
+  github.com/effect-ts/markdown-toc/4bfeb0f140105440ea0d12df2fa23199cc3ec1d5:
+    resolution: {tarball: https://codeload.github.com/effect-ts/markdown-toc/tar.gz/4bfeb0f140105440ea0d12df2fa23199cc3ec1d5}
     name: markdown-toc
     version: 1.2.0
     engines: {node: '>=0.10.0'}

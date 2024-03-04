@@ -30,7 +30,8 @@
     "ci": "pnpm run lint && pnpm run test && pnpm run build",
     "publish": "changeset publish",
     "docs": "docgen",
-    "gen": "plop"
+    "gen": "plop",
+    "dtslint": "dtslint dtslint"
   },
   "repository": {
     "type": "git",
@@ -50,6 +51,7 @@
     "@changesets/cli": "^2.26.0",
     "@effect/build-utils": "^0.7.6",
     "@effect/docgen": "^0.3.6",
+    "@effect/dtslint": "^0.0.4",
     "@fast-check/vitest": "^0.1.0",
     "@types/node": "^20.8.4",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
