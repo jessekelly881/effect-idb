@@ -3,8 +3,8 @@
  */
 
 import * as Error from "@/Error";
-import type { Database, Update } from "@/index";
-import { transaction } from "@/internal//transaction";
+import type { Database, Update } from "@/IndexedDB";
+import { transaction } from "@/internal/transaction";
 import { Effect, Scope } from "effect";
 
 /** @internal */

@@ -1,8 +1,16 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "outDir": "build/esm",
+    "rootDir": "src",
+    "tsBuildInfoFile": ".tsbuildinfo/src.tsbuildinfo",
+    "isolatedModules": true,
+    "composite": true,
+    "sourceMap": true,
+    "declarationMap": true,
+    "declarationDir": "build/dts",
     "strict": true,
-    "noEmit": true,
     "target": "ES2016",
     "module": "commonjs",
     "noImplicitAny": true,
@@ -18,10 +26,7 @@
     },
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx",
+    "src",
   ],
   "exclude": [
     "node_modules",
