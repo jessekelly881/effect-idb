@@ -1,5 +1,11 @@
 # @kellyjesse881/empty
 
+## 0.0.6
+
+### Patch Changes
+
+- a3bf8aa: updated build contents
+
 ## 0.0.5
 
 ### Patch Changes
