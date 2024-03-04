@@ -1,5 +1,11 @@
 # @kellyjesse881/empty
 
+## 0.0.5
+
+### Patch Changes
+
+- b1a5083: updated build script
+
 ## 0.0.4
 
 ### Patch Changes
