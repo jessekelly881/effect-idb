@@ -3,3 +3,5 @@ node_modules
 .pnpm-debug.log
 dist
 build
+.tsbuildinfo/src.tsbuildinfo
+/.tsbuildinfo
