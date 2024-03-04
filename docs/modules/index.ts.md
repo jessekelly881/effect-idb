@@ -12,70 +12,60 @@ Added in v1.0.0
 
 <h2 class="text-delta">Table of contents</h2>
 
-- [layers](#layers)
-  - [layer](#layer)
-- [models](#models)
-  - [Database (interface)](#database-interface)
-  - [IndexedDB (class)](#indexeddb-class)
-  - [Update (interface)](#update-interface)
+- [exports](#exports)
+  - [From "./Error.js"](#from-errorjs)
+  - [From "./IndexedDB.js"](#from-indexeddbjs)
+  - [From "./Store.js"](#from-storejs)
+  - [From "./utils.js"](#from-utilsjs)
 
 ---
 
-# layers
+# exports
 
-## layer
+## From "./Error.js"
+
+Re-exports all named exports from the "./Error.js" module as `Error`.
 
 **Signature**
 
 ```ts
-export declare const layer: Layer.Layer<IndexedDB, never, never>
+export * as Error from "./Error.js"
 ```
 
 Added in v1.0.0
 
-# models
+## From "./IndexedDB.js"
 
-## Database (interface)
+Re-exports all named exports from the "./IndexedDB.js" module as `IndexedDB`.
 
 **Signature**
 
 ```ts
-export interface Database {
-  /**
-   * @since 1.0.0
-   */
-  transaction: <I, R, Stores extends string[], Actions extends Store.Action[]>(
-    stores: Stores,
-    program: (_: Record<Stores[number], Store.Store>) => Effect.Effect<Actions, I, R>
-  ) => Effect.Effect<Store.ReturnMap<Actions>, I | Error.IndexedDBError, R>
-}
+export * as IndexedDB from "./IndexedDB.js"
 ```
 
 Added in v1.0.0
 
-## IndexedDB (class)
+## From "./Store.js"
 
-Top level IndexedDB layer
+Re-exports all named exports from the "./Store.js" module as `Store`.
 
 **Signature**
 
 ```ts
-export declare class IndexedDB
+export * as Store from "./Store.js"
 ```
 
 Added in v1.0.0
 
-## Update (interface)
+## From "./utils.js"
+
+Re-exports all named exports from the "./utils.js" module as `utils`.
 
 **Signature**
 
 ```ts
-export interface Update {
-  /**
-   * @since 1.0.0
-   */
-  createObjectStore: (name: string) => Effect.Effect<IDBObjectStore, Error.IndexedDBError>
-}
+export * as utils from "./utils.js"
 ```
 
 Added in v1.0.0

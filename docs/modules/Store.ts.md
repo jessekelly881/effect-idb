@@ -1,6 +1,6 @@
 ---
 title: Store.ts
-nav_order: 5
+nav_order: 6
 parent: Modules
 ---
 
@@ -68,9 +68,9 @@ Added in v1.0.0
 
 ```ts
 export interface Store {
-  get: ReturnType<typeof _get>
-  add: ReturnType<typeof add>
-  delete: ReturnType<typeof _delete>
+  get: (key: string) => Effect.Effect<Get>
+  add: (value: unknown, key: IDBValidKey) => Effect.Effect<Add>
+  delete: (key: IDBValidKey) => Effect.Effect<Delete>
 }
 ```
 
