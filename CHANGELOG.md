@@ -1,5 +1,11 @@
 # @kellyjesse881/empty
 
+## 0.0.7
+
+### Patch Changes
+
+- da9810f: updated package contents
+
 ## 0.0.6
 
 ### Patch Changes
