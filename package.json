@@ -31,7 +31,8 @@
     "publish": "changeset publish",
     "docs": "docgen",
     "gen": "plop",
-    "dtslint": "dtslint dtslint"
+    "dtslint": "dtslint dtslint",
+    "check": "tsc -b tsconfig.json"
   },
   "repository": {
     "type": "git",
