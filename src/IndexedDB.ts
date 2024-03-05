@@ -44,7 +44,7 @@ export interface Database {
  * @category models
  * @since 1.0.0
  */
-export interface Update {
+export interface Update extends Database {
 	/**
 	 * @since 1.0.0
 	 */

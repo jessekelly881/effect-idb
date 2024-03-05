@@ -9,6 +9,9 @@ import { Effect, Scope } from "effect";
 
 /** @internal */
 const update = (db: IDBDatabase): Update => ({
+	version: db.version,
+	name: db.name,
+	transaction: transaction(db),
 	createObjectStore: (name) =>
 		Effect.try({
 			try: () => db.createObjectStore(name),
