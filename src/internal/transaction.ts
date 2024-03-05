@@ -5,7 +5,7 @@
 import * as Error from "@/Error";
 import * as Store from "@/Store";
 import { wrapRequest } from "@/utils";
-import { Effect, Option, ReadonlyRecord } from "effect";
+import { Effect, Exit, Option, ReadonlyRecord, Scope } from "effect";
 
 /** @internal */
 export const transaction =
@@ -15,7 +15,11 @@ export const transaction =
 		program: (
 			_: Record<Stores[number], Store.Store>
 		) => Effect.Effect<Actions, I, R>
-	): Effect.Effect<Store.ReturnMap<Actions>, I | Error.IndexedDBError, R> =>
+	): Effect.Effect<
+		Store.ReturnMap<Actions>,
+		I | Error.IndexedDBError,
+		R | Scope.Scope
+	> =>
 		Effect.gen(function* (_) {
 			const actions = yield* _(
 				program(
@@ -27,13 +31,21 @@ export const transaction =
 			);
 
 			const t = yield* _(
-				Effect.try({
-					try: () => idb.transaction(stores, "readwrite"),
-					catch: () =>
-						new Error.IndexedDBError({
-							message: ""
-						})
-				})
+				Effect.acquireRelease(
+					Effect.try({
+						try: () => idb.transaction(stores, "readwrite"),
+						catch: () =>
+							new Error.IndexedDBError({
+								message: ""
+							})
+					}),
+
+					// Abort transaction on interrupt
+					(t, exit) =>
+						Exit.isInterrupted(exit)
+							? Effect.sync(() => t.abort())
+							: Effect.unit
+				)
 			);
 
 			const storeHandles = ReadonlyRecord.fromIterableWith(
@@ -82,6 +94,15 @@ export const transaction =
 						}
 					})
 				)
+			);
+
+			// Wait for transaction.oncomplete
+			yield* _(
+				Effect.async((resume) => {
+					t.oncomplete = () => {
+						resume(Effect.succeed(null));
+					};
+				})
 			);
 
 			return ret as Store.ReturnMap<Actions>;

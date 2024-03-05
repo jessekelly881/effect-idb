@@ -41,12 +41,14 @@ const testDb = Effect.flatMap(IndexedDB.IndexedDB, (db) =>
 );
 
 describe("IndexedDB", () => {
-	test("open", () =>
+	test("name, version", (ctx) =>
 		Effect.gen(function* (_) {
-			yield* _(testDb);
+			const db = yield* _(testDb);
+			ctx.expect(db.name).toBe("store");
+			ctx.expect(db.version).toBe(1);
 		}));
 
-	test("add, get", (ctx) =>
+	test("get <None>", (ctx) =>
 		Effect.gen(function* (_) {
 			const db = yield* _(testDb);
 			const res = yield* _(
@@ -56,5 +58,17 @@ describe("IndexedDB", () => {
 			);
 
 			ctx.expect(res[0]).toBe(Option.none());
+		}));
+
+	test("add, get", (ctx) =>
+		Effect.gen(function* (_) {
+			const db = yield* _(testDb);
+			const res = yield* _(
+				db.transaction(["store"], ({ store }) =>
+					Effect.all([store.add("val", "key1"), store.get("key1")])
+				)
+			);
+
+			ctx.expect(res[1]).toEqual(Option.some("val"));
 		}));
 });

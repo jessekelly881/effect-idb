@@ -44,7 +44,11 @@ export interface Database {
 		program: (
 			_: Record<Stores[number], Store.Store>
 		) => Effect.Effect<Actions, I, R>
-	) => Effect.Effect<Store.ReturnMap<Actions>, I | Error.IndexedDBError, R>;
+	) => Effect.Effect<
+		Store.ReturnMap<Actions>,
+		I | Error.IndexedDBError,
+		R | Scope.Scope
+	>;
 }
 
 /**
