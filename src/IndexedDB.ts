@@ -13,6 +13,18 @@ import { Context, Effect, Layer, Scope } from "effect";
  */
 export interface Database {
 	/**
+	 * Database name
+	 * @since 1.0.0
+	 */
+	name: string;
+
+	/**
+	 * Database version
+	 * @since 1.0.0
+	 */
+	version: number;
+
+	/**
 	 * @since 1.0.0
 	 */
 	transaction: <
@@ -47,7 +59,7 @@ export interface Update {
  * @category models
  * @since 1.0.0
  */
-export class IndexedDB extends Context.Tag("IndexedDB")<
+export class IndexedDB extends Context.Tag("effect-idb/IndexedDB")<
 	IndexedDB,
 	{
 		/**

@@ -72,6 +72,8 @@ export const open = ({
 		);
 
 		return {
-			transaction: transaction(db)
-		} as Database;
+			transaction: transaction(db),
+			version: db.version,
+			name: db.name
+		} satisfies Database;
 	});
