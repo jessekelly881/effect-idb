@@ -11,6 +11,7 @@ import { Effect, Scope } from "effect";
 const createDatabase = (db: IDBDatabase): Database => ({
 	version: db.version,
 	name: db.name,
+	objectStoreNames: db.objectStoreNames,
 	transaction: transaction(db)
 });
 
@@ -20,6 +21,14 @@ const createUpdateDatabase = (db: IDBDatabase): Update => ({
 	createObjectStore: (name) =>
 		Effect.try({
 			try: () => db.createObjectStore(name),
+			catch: () =>
+				new Error.IndexedDBError({
+					message: "Error creating object store"
+				})
+		}),
+	deleteObjectStore: (name) =>
+		Effect.try({
+			try: () => db.deleteObjectStore(name),
 			catch: () =>
 				new Error.IndexedDBError({
 					message: "Error creating object store"

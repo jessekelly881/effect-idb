@@ -25,6 +25,13 @@ export interface Database {
 	version: number;
 
 	/**
+	 * List of store names
+	 *
+	 * @since 1.0.0
+	 */
+	objectStoreNames: DOMStringList;
+
+	/**
 	 * @since 1.0.0
 	 */
 	transaction: <
@@ -53,6 +60,13 @@ export interface Update extends Database {
 	createObjectStore: (
 		name: string
 	) => Effect.Effect<IDBObjectStore, Error.IndexedDBError>;
+
+	/**
+	 * @since 1.0.0
+	 */
+	deleteObjectStore: (
+		name: string
+	) => Effect.Effect<void, Error.IndexedDBError>;
 }
 
 /**
