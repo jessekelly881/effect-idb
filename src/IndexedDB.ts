@@ -41,6 +41,8 @@ export interface Database {
 }
 
 /**
+ * Database object w/ extended update capabilities only available during upgrade event.
+ *
  * @category models
  * @since 1.0.0
  */

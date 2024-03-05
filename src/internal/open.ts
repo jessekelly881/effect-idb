@@ -8,10 +8,15 @@ import { transaction } from "@/internal/transaction";
 import { Effect, Scope } from "effect";
 
 /** @internal */
-const update = (db: IDBDatabase): Update => ({
+const createDatabase = (db: IDBDatabase): Database => ({
 	version: db.version,
 	name: db.name,
-	transaction: transaction(db),
+	transaction: transaction(db)
+});
+
+/** @internal */
+const createUpdateDatabase = (db: IDBDatabase): Update => ({
+	...createDatabase(db),
 	createObjectStore: (name) =>
 		Effect.try({
 			try: () => db.createObjectStore(name),
@@ -61,7 +66,7 @@ export const open = ({
 				if (onUpgrade) {
 					openRequest.onupgradeneeded = async () =>
 						await Effect.runPromise(
-							onUpgrade(update(openRequest.result))
+							onUpgrade(createUpdateDatabase(openRequest.result))
 						);
 				}
 			})
@@ -74,9 +79,5 @@ export const open = ({
 			)
 		);
 
-		return {
-			transaction: transaction(db),
-			version: db.version,
-			name: db.name
-		} satisfies Database;
+		return createDatabase(db);
 	});
