@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "outDir": "build/esm",
     "rootDir": "src",

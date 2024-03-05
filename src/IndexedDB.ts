@@ -37,7 +37,7 @@ export interface Database {
 	transaction: <
 		I,
 		R,
-		Stores extends string[],
+		const Stores extends string[],
 		Actions extends Store.Action[]
 	>(
 		stores: Stores,
