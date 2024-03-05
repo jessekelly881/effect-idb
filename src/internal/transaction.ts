@@ -5,7 +5,7 @@
 import * as Error from "@/Error";
 import * as Store from "@/Store";
 import { wrapRequest } from "@/utils";
-import { Effect, ReadonlyRecord } from "effect";
+import { Effect, Option, ReadonlyRecord } from "effect";
 
 /** @internal */
 export const transaction =
@@ -66,7 +66,7 @@ export const transaction =
 											message:
 												"Error getting value from store"
 										})
-								);
+								).pipe(Effect.map(Option.fromNullable));
 							}
 
 							case "Delete": {

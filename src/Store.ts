@@ -2,7 +2,7 @@
  * @since 1.0.0
  */
 
-import { Effect } from "effect";
+import { Effect, Option } from "effect";
 
 /** @internal */
 export declare namespace Action {
@@ -79,7 +79,7 @@ export {
  * @since 1.0.0
  */
 export type Return<T> = T extends Action
-	? { Add: void; Get: unknown; Delete: void }[T["_op"]]
+	? { Add: void; Get: Option.Option<unknown>; Delete: void }[T["_op"]]
 	: never;
 
 /**

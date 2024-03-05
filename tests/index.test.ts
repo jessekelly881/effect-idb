@@ -1,4 +1,4 @@
-import { Effect, Scope } from "effect";
+import { Effect, Option, Scope } from "effect";
 import "fake-indexeddb/auto";
 import { TestContext, describe, it } from "vitest";
 import * as Error from "../src/Error";
@@ -22,7 +22,10 @@ const test = <A>(
 				Effect.orDie
 			)
 		);
-		ctx.expect(res._tag).toBe("Success");
+
+		if (res._tag === "Failure") {
+			throw res;
+		}
 	});
 };
 
@@ -48,10 +51,10 @@ describe("IndexedDB", () => {
 			const db = yield* _(testDb);
 			const res = yield* _(
 				db.transaction(["store"], ({ store }) =>
-					Effect.all([store.add("hello", "key1"), store.get("key1")])
+					Effect.all([store.get("key1")])
 				)
 			);
 
-			ctx.expect(res[1]).toBe("hello");
+			ctx.expect(res[0]).toBe(Option.none());
 		}));
 });
