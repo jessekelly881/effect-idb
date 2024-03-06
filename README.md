@@ -6,14 +6,14 @@ An IndexedDB wrapper for Effect.
 
 IndexedDB Layers are created by passing in an instance of IDBFactory which can either be a test factory from fake-indexeddb or the browser root indexedDB object.
 
-### Browser
+**Browser**
 
 ```ts
 import { IndexedDB } from "effect-idb";
 const layerBrowser = IndexedDB.createLayer(indexedDB); // uses global indexedDB instance
 ```
 
-### Memory/Test
+**Memory/Test**
 
 ```ts
 import { IndexedDB } from "effect-idb";
