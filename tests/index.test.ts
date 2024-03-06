@@ -41,15 +41,18 @@ const testDb = Effect.flatMap(IndexedDB.IndexedDB, (db) =>
 );
 
 describe("IndexedDB", () => {
-	it("", (ctx) => {
-		ctx.expect(Option.some("abc")).toBeSome("abc");
-	});
-
-	test("name, version", (ctx) =>
+	test("creates db", (ctx) =>
 		Effect.gen(function* (_) {
+			const idb = yield* _(IndexedDB.IndexedDB);
 			const db = yield* _(testDb);
+
+			const databases = yield* _(idb.databases);
+
 			ctx.expect(db.name).toBe("store");
 			ctx.expect(db.version).toBe(1);
+			ctx.expect(
+				databases.find((db) => db.name === "store")
+			).toBeTruthy();
 		}));
 
 	test("get <None>", (ctx) =>
