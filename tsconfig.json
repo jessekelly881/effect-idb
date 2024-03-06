@@ -26,6 +26,7 @@
   },
   "include": [
     "src",
+    "sandbox/KeyValueStore.ts",
   ],
   "exclude": [
     "node_modules",
