@@ -2,6 +2,26 @@
 
 An IndexedDB wrapper for Effect.
 
+## Layers
+
+IndexedDB Layers are created by passing in an instance of IDBFactory which can either be a test factory from fake-indexeddb or the browser root indexedDB object.
+
+### Browser
+
+```ts
+import { IndexedDB } from "effect-idb";
+const layerBrowser = IndexedDB.createLayer(indexedDB); // uses global indexedDB instance
+```
+
+### Memory/Test
+
+```ts
+import { IndexedDB } from "effect-idb";
+import { indexedDB } from "fake-indexeddb";
+
+const layerFake = IndexedDB.createLayer(indexedDB);
+```
+
 ## Transactions
 
 ```ts
@@ -26,7 +46,7 @@ Effect.gen(function* (_) {
   )
  );
 }).pipe(
- Effect.provide(layer),
+ Effect.provide(IndexedDB.createLayer(indexedDB)),
  Effect.scoped,
  Effect.runFork
 );

@@ -76,5 +76,8 @@
   "dependencies": {
     "@effect/platform": "^0.46.3",
     "effect": "^2.4.1"
+  },
+  "peerDependencies": {
+    "fake-indexeddb": "^5.0.2"
   }
 }

@@ -95,12 +95,15 @@ export class IndexedDB extends Context.Tag("effect-idb/IndexedDB")<
 >() {}
 
 /**
- * @category layers
- * @since 1.0.0
+ * Creates an IndexedDB layer from a given IDBFactory
+ *
+ * @param factory IDBFactory
+ * @returns
  */
-export const layer = Layer.succeed(
-	IndexedDB,
-	IndexedDB.of({
-		open
-	})
-);
+export const createLayer = (factory: IDBFactory) =>
+	Layer.succeed(
+		IndexedDB,
+		IndexedDB.of({
+			open: open(factory)
+		})
+	);

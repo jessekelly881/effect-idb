@@ -37,56 +37,60 @@ const createUpdateDatabase = (db: IDBDatabase): Update => ({
 });
 
 /** @internal */
-export const open = ({
-	name,
-	onUpgrade,
-	version
-}: {
-	name: string;
-	onUpgrade?: (db: Update) => Effect.Effect<void, Error.IndexedDBError>;
-	version?: number;
-}): Effect.Effect<Database, Error.IndexedDBError, Scope.Scope> =>
-	Effect.gen(function* (_) {
-		const scope = yield* _(Scope.Scope);
-		const db = yield* _(
-			Effect.async<IDBDatabase, Error.IndexedDBError>((resume) => {
-				const openRequest = indexedDB.open(name, version);
+export const open =
+	(factory: IDBFactory) =>
+	({
+		name,
+		onUpgrade,
+		version
+	}: {
+		name: string;
+		onUpgrade?: (db: Update) => Effect.Effect<void, Error.IndexedDBError>;
+		version?: number;
+	}): Effect.Effect<Database, Error.IndexedDBError, Scope.Scope> =>
+		Effect.gen(function* (_) {
+			const scope = yield* _(Scope.Scope);
+			const db = yield* _(
+				Effect.async<IDBDatabase, Error.IndexedDBError>((resume) => {
+					const openRequest = factory.open(name, version);
 
-				openRequest.onerror = () => {
-					resume(
-						new Error.IndexedDBError({
-							message: "Failed to open"
-						})
-					);
-				};
-
-				openRequest.onblocked = () => {
-					resume(
-						new Error.IndexedDBError({
-							message: "Blocked"
-						})
-					);
-				};
-
-				openRequest.onsuccess = () => {
-					resume(Effect.succeed(openRequest.result));
-				};
-
-				if (onUpgrade) {
-					openRequest.onupgradeneeded = async () =>
-						await Effect.runPromise(
-							onUpgrade(createUpdateDatabase(openRequest.result))
+					openRequest.onerror = () => {
+						resume(
+							new Error.IndexedDBError({
+								message: "Failed to open"
+							})
 						);
-				}
-			})
-		);
+					};
 
-		yield* _(
-			Scope.addFinalizer(
-				scope,
-				Effect.sync(() => db.close())
-			)
-		);
+					openRequest.onblocked = () => {
+						resume(
+							new Error.IndexedDBError({
+								message: "Blocked"
+							})
+						);
+					};
 
-		return createDatabase(db);
-	});
+					openRequest.onsuccess = () => {
+						resume(Effect.succeed(openRequest.result));
+					};
+
+					if (onUpgrade) {
+						openRequest.onupgradeneeded = async () =>
+							await Effect.runPromise(
+								onUpgrade(
+									createUpdateDatabase(openRequest.result)
+								)
+							);
+					}
+				})
+			);
+
+			yield* _(
+				Scope.addFinalizer(
+					scope,
+					Effect.sync(() => db.close())
+				)
+			);
+
+			return createDatabase(db);
+		});

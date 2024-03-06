@@ -1,8 +1,9 @@
 import { Effect, Option, Scope } from "effect";
-import "fake-indexeddb/auto";
 import { TestContext, describe, it } from "vitest";
 import * as Error from "../src/Error";
-import { IndexedDB } from "../src/index";
+import * as IndexedDB from "../src/IndexedDB";
+import { IDBFactory } from "fake-indexeddb";
+import "./Option";
 
 const test = <A>(
 	name: string,
@@ -14,13 +15,12 @@ const test = <A>(
 		Scope.Scope | IndexedDB.IndexedDB
 	>
 ) => {
+	const factory = new IDBFactory(); // create a fresh instance for each test
+	const idbLayer = IndexedDB.createLayer(factory);
+
 	it(name, async (ctx) => {
 		const res = await Effect.runPromiseExit(
-			fn(ctx).pipe(
-				Effect.scoped,
-				Effect.provide(IndexedDB.layer),
-				Effect.orDie
-			)
+			fn(ctx).pipe(Effect.scoped, Effect.provide(idbLayer), Effect.orDie)
 		);
 
 		if (res._tag === "Failure") {
@@ -41,6 +41,10 @@ const testDb = Effect.flatMap(IndexedDB.IndexedDB, (db) =>
 );
 
 describe("IndexedDB", () => {
+	it("", (ctx) => {
+		ctx.expect(Option.some("abc")).toBeSome("abc");
+	});
+
 	test("name, version", (ctx) =>
 		Effect.gen(function* (_) {
 			const db = yield* _(testDb);
@@ -57,7 +61,7 @@ describe("IndexedDB", () => {
 				)
 			);
 
-			ctx.expect(res[0]).toBe(Option.none());
+			ctx.expect(res[0]).toBeNone();
 		}));
 
 	test("add, get", (ctx) =>
@@ -69,6 +73,6 @@ describe("IndexedDB", () => {
 				)
 			);
 
-			ctx.expect(res[1]).toEqual(Option.some("val"));
+			ctx.expect(res[1]).toBeSome("val");
 		}));
 });
