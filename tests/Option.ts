@@ -70,6 +70,8 @@ expect.extend({
 	}
 });
 
+type OptionType<T> = T extends Option.Option<infer A> ? A : never;
+
 interface OptionMatchers<R = unknown> {
 	/**
 	 * Test that the value is equal to `Option.None`
@@ -81,13 +83,10 @@ interface OptionMatchers<R = unknown> {
 	 * Test that the value is equal to `Option.Some(?)`
 	 * @since 1.0.0
 	 */
-	toBeSome: (val?: R) => void;
+	toBeSome: (val?: OptionType<R>) => void;
 }
 
-type OptionType<T> = T extends Option.Option<infer A> ? A : never;
-
 declare module "vitest" {
-	interface Assertion<T extends Option.Option<any>>
-		extends OptionMatchers<OptionType<T>> {}
+	interface Assertion<T> extends OptionMatchers<T> {}
 	interface AsymmetricMatchersContaining extends OptionMatchers {}
 }

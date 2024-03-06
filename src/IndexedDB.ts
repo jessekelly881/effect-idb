@@ -91,6 +91,12 @@ export class IndexedDB extends Context.Tag("effect-idb/IndexedDB")<
 			onUpgrade?: (db: Update) => Effect.Effect<void>;
 			version?: number;
 		}) => Effect.Effect<Database, Error.IndexedDBError, Scope.Scope>;
+
+		/**
+		 * Array of Database info
+		 * @since 1.0.0
+		 */
+		databases: Effect.Effect<IDBDatabaseInfo[]>;
 	}
 >() {}
 
@@ -104,6 +110,8 @@ export const layer = (factory: IDBFactory) =>
 	Layer.succeed(
 		IndexedDB,
 		IndexedDB.of({
-			open: open(factory)
+			open: open(factory),
+			databases: Effect.promise(() => factory.databases())
+			// deleteDatabase
 		})
 	);

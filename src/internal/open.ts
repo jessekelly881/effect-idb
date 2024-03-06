@@ -26,6 +26,7 @@ const createUpdateDatabase = (db: IDBDatabase): Update => ({
 					message: "Error creating object store"
 				})
 		}),
+
 	deleteObjectStore: (name) =>
 		Effect.try({
 			try: () => db.deleteObjectStore(name),
