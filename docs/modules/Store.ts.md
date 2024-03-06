@@ -43,7 +43,7 @@ Added in v1.0.0
 **Signature**
 
 ```ts
-export type Return<T> = T extends Action ? { Add: void; Get: unknown; Delete: void }[T["_op"]] : never
+export type Return<T> = T extends Action ? { Add: void; Get: Option.Option<unknown>; Delete: void }[T["_op"]] : never
 ```
 
 Added in v1.0.0
