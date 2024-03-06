@@ -10,7 +10,7 @@ IndexedDB Layers are created by passing in an instance of IDBFactory which can e
 
 ```ts
 import { IndexedDB } from "effect-idb";
-const layerBrowser = IndexedDB.createLayer(indexedDB); // uses global indexedDB instance
+const layerBrowser = IndexedDB.layer(indexedDB); // uses global indexedDB instance
 ```
 
 **Memory/Test**
@@ -19,7 +19,7 @@ const layerBrowser = IndexedDB.createLayer(indexedDB); // uses global indexedDB 
 import { IndexedDB } from "effect-idb";
 import { indexedDB } from "fake-indexeddb";
 
-const layerFake = IndexedDB.createLayer(indexedDB);
+const layerFake = IndexedDB.layer(indexedDB);
 ```
 
 ## Transactions
@@ -46,7 +46,7 @@ Effect.gen(function* (_) {
   )
  );
 }).pipe(
- Effect.provide(IndexedDB.createLayer(indexedDB)),
+ Effect.provide(IndexedDB.layer(indexedDB)),
  Effect.scoped,
  Effect.runFork
 );

@@ -100,7 +100,7 @@ export class IndexedDB extends Context.Tag("effect-idb/IndexedDB")<
  * @since 1.0.0
  * @param {IDBFactory} factory
  */
-export const createLayer = (factory: IDBFactory) =>
+export const layer = (factory: IDBFactory) =>
 	Layer.succeed(
 		IndexedDB,
 		IndexedDB.of({

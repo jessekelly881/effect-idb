@@ -17,7 +17,7 @@ Added in v1.0.0
   - [IndexedDB (class)](#indexeddb-class)
   - [Update (interface)](#update-interface)
 - [utils](#utils)
-  - [createLayer](#createlayer)
+  - [layer](#layer)
 
 ---
 
@@ -96,14 +96,14 @@ Added in v1.0.0
 
 # utils
 
-## createLayer
+## layer
 
 Creates an IndexedDB layer from a given IDBFactory
 
 **Signature**
 
 ```ts
-export declare const createLayer: (factory: IDBFactory) => Layer.Layer<IndexedDB, never, never>
+export declare const layer: (factory: IDBFactory) => Layer.Layer<IndexedDB, never, never>
 ```
 
 Added in v1.0.0

@@ -16,7 +16,7 @@ const test = <A>(
 	>
 ) => {
 	const factory = new IDBFactory(); // create a fresh instance for each test
-	const idbLayer = IndexedDB.createLayer(factory);
+	const idbLayer = IndexedDB.layer(factory);
 
 	it(name, async (ctx) => {
 		const res = await Effect.runPromiseExit(
