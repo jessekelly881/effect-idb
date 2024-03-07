@@ -18,9 +18,11 @@ Added in v1.0.0
   - [ReturnMap (type alias)](#returnmap-type-alias)
   - [Store (interface)](#store-interface)
   - [add](#add)
-  - [createStore](#createstore)
+  - [clear](#clear)
+  - [count](#count)
   - [delete](#delete)
   - [get](#get)
+  - [put](#put)
 
 ---
 
@@ -33,7 +35,7 @@ A Database Action
 **Signature**
 
 ```ts
-export type Action = Add | Get | Delete
+export type Action = Add | Get | Delete | Clear | Count | Put
 ```
 
 Added in v1.0.0
@@ -43,7 +45,16 @@ Added in v1.0.0
 **Signature**
 
 ```ts
-export type Return<T> = T extends Action ? { Add: void; Get: Option.Option<unknown>; Delete: void }[T["_op"]] : never
+export type Return<T> = T extends Action
+  ? {
+      Add: void
+      Get: Option.Option<unknown>
+      Delete: void
+      Clear: void
+      Count: number
+      Put: void
+    }[T["_op"]]
+  : never
 ```
 
 Added in v1.0.0
@@ -70,7 +81,10 @@ Added in v1.0.0
 export interface Store {
   get: (key: string) => Effect.Effect<Get>
   add: (value: unknown, key: IDBValidKey) => Effect.Effect<Add>
+  put: (value: unknown, key: IDBValidKey) => Effect.Effect<Put>
   delete: (key: IDBValidKey) => Effect.Effect<Delete>
+  clear: Effect.Effect<Clear>
+  count: Effect.Effect<Count>
 }
 ```
 
@@ -86,12 +100,22 @@ export declare const add: (store: string) => (value: unknown, key: IDBValidKey) 
 
 Added in v1.0.0
 
-## createStore
+## clear
 
 **Signature**
 
 ```ts
-export declare const createStore: (store: string) => Store
+export declare const clear: (store: string) => Effect.Effect<Clear>
+```
+
+Added in v1.0.0
+
+## count
+
+**Signature**
+
+```ts
+export declare const count: (store: string) => Effect.Effect<Count>
 ```
 
 Added in v1.0.0
@@ -112,6 +136,16 @@ Added in v1.0.0
 
 ```ts
 export declare const get: (store: string) => (key: string) => Effect.Effect<Get, never, never>
+```
+
+Added in v1.0.0
+
+## put
+
+**Signature**
+
+```ts
+export declare const put: (store: string) => (value: unknown, key: IDBValidKey) => Effect.Effect<Put>
 ```
 
 Added in v1.0.0

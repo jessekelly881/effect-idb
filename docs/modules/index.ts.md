@@ -15,6 +15,7 @@ Added in v1.0.0
 - [exports](#exports)
   - [From "./Error.js"](#from-errorjs)
   - [From "./IndexedDB.js"](#from-indexeddbjs)
+  - [From "./KeyValueStore.js"](#from-keyvaluestorejs)
   - [From "./Store.js"](#from-storejs)
   - [From "./utils.js"](#from-utilsjs)
 
@@ -42,6 +43,18 @@ Re-exports all named exports from the "./IndexedDB.js" module as `IndexedDB`.
 
 ```ts
 export * as IndexedDB from "./IndexedDB.js"
+```
+
+Added in v1.0.0
+
+## From "./KeyValueStore.js"
+
+A key-value store built ontop of a managed IndexedDB database.
+
+**Signature**
+
+```ts
+export * as KeyValueStore from "./KeyValueStore.js"
 ```
 
 Added in v1.0.0
