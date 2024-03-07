@@ -112,4 +112,20 @@ describe("IndexedDB", () => {
 			ctx.expect(countBefore).toBe(0);
 			ctx.expect(countAfter).toBe(1);
 		}));
+
+	test("put, get", (ctx) =>
+		Effect.gen(function* (_) {
+			const db = yield* _(testDb);
+			const res = yield* _(
+				db.transaction(["store"], ({ store }) =>
+					Effect.all([
+						store.put("val", "key1"),
+						store.put("val-new", "key1"),
+						store.get("key1")
+					])
+				)
+			);
+
+			ctx.expect(res[2]).toBeSome("val-new");
+		}));
 });

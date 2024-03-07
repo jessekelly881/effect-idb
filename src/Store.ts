@@ -24,6 +24,13 @@ export interface Add extends Action.Proto {
 }
 
 /** @internal */
+export interface Put extends Action.Proto {
+	_op: "Put";
+	value: unknown;
+	key: IDBValidKey;
+}
+
+/** @internal */
 export interface Get extends Action.Proto {
 	_op: "Get";
 	key: string;
@@ -50,7 +57,7 @@ export interface Count extends Action.Proto {
  *
  * @since 1.0.0
  */
-export type Action = Add | Get | Delete | Clear | Count;
+export type Action = Add | Get | Delete | Clear | Count | Put;
 
 /**
  * @since 1.0.0
@@ -60,6 +67,14 @@ export const add =
 	(store: string) =>
 	(value: unknown, key: IDBValidKey): Effect.Effect<Add> =>
 		Effect.succeed({ _tag: "Action", _op: "Add", store, value, key });
+
+/**
+ * @since 1.0.0
+ */
+export const put =
+	(store: string) =>
+	(value: unknown, key: IDBValidKey): Effect.Effect<Put> =>
+		Effect.succeed({ _tag: "Action", _op: "Put", store, value, key });
 
 /**
  * @since 1.0.0
@@ -107,6 +122,7 @@ export type Return<T> = T extends Action
 			Delete: void;
 			Clear: void;
 			Count: number;
+			Put: void;
 		}[T["_op"]]
 	: never;
 
@@ -125,6 +141,7 @@ export type ReturnMap<T> = T extends Action[]
 export interface Store {
 	get: (key: string) => Effect.Effect<Get>;
 	add: (value: unknown, key: IDBValidKey) => Effect.Effect<Add>;
+	put: (value: unknown, key: IDBValidKey) => Effect.Effect<Put>;
 	delete: (key: IDBValidKey) => Effect.Effect<Delete>;
 	clear: Effect.Effect<Clear>;
 	count: Effect.Effect<Count>;

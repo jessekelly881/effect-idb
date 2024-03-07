@@ -13,6 +13,7 @@ import { Effect, Exit, Option, ReadonlyRecord, Scope } from "effect";
 export const createStore = (store: string): Store.Store => ({
 	// Actions
 	add: Store.add(store),
+	put: Store.put(store),
 	get: Store.get(store),
 	delete: Store.delete(store),
 	clear: Store.clear(store),
@@ -120,6 +121,17 @@ export const transaction =
 									() =>
 										new Error.IndexedDBError({
 											message: "Error counting store"
+										})
+								);
+							}
+
+							case "Put": {
+								return wrapRequest(
+									() => store.put(action.value, action.key),
+									() =>
+										new Error.IndexedDBError({
+											message:
+												"Error putting value to store"
 										})
 								);
 							}
