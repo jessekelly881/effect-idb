@@ -60,10 +60,8 @@ export const layer = (
 			return KeyValueStore.make({
 				set: (key, value) =>
 					db
-						.transaction(
-							[storeName],
-							(store) =>
-								Effect.all([store[storeName].add(value, key)]) // FIXME: Use put instead of add
+						.transaction([storeName], (store) =>
+							Effect.all([store[storeName].put(value, key)])
 						)
 						.pipe(
 							Effect.map((as) => as[0]),

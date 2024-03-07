@@ -51,3 +51,17 @@ Effect.gen(function* (_) {
  Effect.runFork
 );
 ```
+
+## KeyValueStore
+
+effect-idb exports an instance of @effect/platform/KeyValueStore for easily reading and writing values to a managed IndexedDB database.
+
+```ts
+import * as KeyValueStore from "@effect/platform/KeyValueStore";
+import { layer } from "effect-idb/KeyValueStore";
+
+Effect.gen(function* (_) {
+  const kv = yield* _(KeyValueStore.KeyValueStore);
+  yield* _(kv.set("/foo/bar", "bar"));
+}).pipe(Effect.provide(layer("database", "store")))
+```
