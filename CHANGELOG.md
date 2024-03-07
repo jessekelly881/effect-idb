@@ -1,5 +1,13 @@
 # @kellyjesse881/empty
 
+## 0.0.9
+
+### Patch Changes
+
+- ec4812f: added KeyValueStore
+- 67303a0: added IndexedDB.deleteDatabase
+- f4f7f42: added support for test layers
+
 ## 0.0.8
 
 ### Patch Changes
