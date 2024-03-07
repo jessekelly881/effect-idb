@@ -79,4 +79,20 @@ describe("IndexedDB", () => {
 
 			ctx.expect(res[1]).toBeSome("val");
 		}));
+
+	test("add, clear, get <None>", (ctx) =>
+		Effect.gen(function* (_) {
+			const db = yield* _(testDb);
+			const res = yield* _(
+				db.transaction(["store"], ({ store }) =>
+					Effect.all([
+						store.add("val", "key1"),
+						store.clear(),
+						store.get("key1")
+					])
+				)
+			);
+
+			ctx.expect(res[2]).toBeNone();
+		}));
 });

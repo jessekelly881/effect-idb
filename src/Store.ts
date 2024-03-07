@@ -35,12 +35,16 @@ export interface Delete extends Action.Proto {
 	key: IDBValidKey;
 }
 
+export interface Clear extends Action.Proto {
+	_op: "Clear";
+}
+
 /**
  * A Database Action
  *
  * @since 1.0.0
  */
-export type Action = Add | Get | Delete;
+export type Action = Add | Get | Delete | Clear;
 
 /**
  * @since 1.0.0
@@ -50,6 +54,12 @@ export const add =
 	(store: string) =>
 	(value: unknown, key: IDBValidKey): Effect.Effect<Add> =>
 		Effect.succeed({ _tag: "Action", _op: "Add", store, value, key });
+
+/**
+ * @since 1.0.0
+ */
+export const clear = (store: string) => (): Effect.Effect<Clear> =>
+	Effect.succeed({ _tag: "Action", _op: "Clear", store });
 
 const _delete =
 	(store: string) =>
@@ -79,7 +89,12 @@ export {
  * @since 1.0.0
  */
 export type Return<T> = T extends Action
-	? { Add: void; Get: Option.Option<unknown>; Delete: void }[T["_op"]]
+	? {
+			Add: void;
+			Get: Option.Option<unknown>;
+			Delete: void;
+			Clear: void;
+		}[T["_op"]]
 	: never;
 
 /**
@@ -98,4 +113,5 @@ export interface Store {
 	get: (key: string) => Effect.Effect<Get>;
 	add: (value: unknown, key: IDBValidKey) => Effect.Effect<Add>;
 	delete: (key: IDBValidKey) => Effect.Effect<Delete>;
+	clear: () => Effect.Effect<Clear>;
 }

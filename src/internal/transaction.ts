@@ -14,7 +14,8 @@ export const createStore = (store: string): Store.Store => ({
 	// Actions
 	add: Store.add(store),
 	get: Store.get(store),
-	delete: Store.delete(store)
+	delete: Store.delete(store),
+	clear: Store.clear(store)
 });
 
 /** @internal */
@@ -98,6 +99,16 @@ export const transaction =
 										new Error.IndexedDBError({
 											message:
 												"Error getting value from store"
+										})
+								);
+							}
+
+							case "Clear": {
+								return wrapRequest(
+									() => store.clear(),
+									() =>
+										new Error.IndexedDBError({
+											message: "Error clearing store"
 										})
 								);
 							}
