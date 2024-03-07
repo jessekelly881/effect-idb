@@ -4,16 +4,23 @@
  * @since 1.0.0
  */
 
-import * as IndexedDB from "@/IndexedDB";
+import { Error, IndexedDB } from "@/index";
 import { KeyValueStore } from "@effect/platform";
-import { Effect, Layer } from "effect";
+import { Effect, Layer, Option } from "effect";
 
 /**
  * Create a key-value store layer.
  *
  * @since 1.0.0
  */
-export const layer = (dbName: string, storeName: string) =>
+export const layer = (
+	dbName: string,
+	storeName: string
+): Layer.Layer<
+	KeyValueStore.KeyValueStore,
+	Error.IndexedDBError,
+	IndexedDB.IndexedDB
+> =>
 	Layer.scoped(
 		KeyValueStore.KeyValueStore,
 		Effect.gen(function* (_) {
@@ -53,25 +60,42 @@ export const layer = (dbName: string, storeName: string) =>
 			return KeyValueStore.make({
 				set: (key, value) =>
 					db
-						.transaction([storeName], (store) =>
-							Effect.all([store[storeName].add(value, key)])
+						.transaction(
+							[storeName],
+							(store) =>
+								Effect.all([store[storeName].add(value, key)]) // FIXME: Use put instead of add
 						)
 						.pipe(
 							Effect.map((as) => as[0]),
 							Effect.scoped,
-							Effect.orDie // TODO: Map to PlatformError
+							Effect.orDie // FIXME: Map to PlatformError
 						),
 
 				get: (key) =>
 					db
 						.transaction([storeName], (store) =>
-							store[storeName].get(key)
+							Effect.all([store[storeName].get(key)])
+						)
+						.pipe(
+							Effect.map((as) => as[0] as Option.Option<string>),
+							Effect.scoped,
+							Effect.orDie // FIXME: Map to PlatformError
+						),
+				remove: (key) =>
+					db
+						.transaction(
+							[storeName],
+							(store) =>
+								Effect.all([store[storeName].delete(key)]) // FIXME: Use put instead of add
 						)
 						.pipe(
 							Effect.map((as) => as[0]),
 							Effect.scoped,
-							Effect.orDie // TODO: Map to PlatformError
-						)
+							Effect.orDie // FIXME: Map to PlatformError
+						),
+
+				size: Effect.succeed(0), // FIXME: Implement. IDBObjectStore.count()
+				clear: Effect.succeed(undefined) // FIXME: Implement. IDBObjectStore.clear()
 			});
 		})
 	);

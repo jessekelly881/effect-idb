@@ -1,34 +1,8 @@
-import { Effect, Scope } from "effect";
-import { TestContext, describe, it } from "vitest";
-import * as Error from "../src/Error";
+import { Effect } from "effect";
+import { describe } from "vitest";
 import * as IndexedDB from "../src/IndexedDB";
-import { IDBFactory } from "fake-indexeddb";
 import "./Option";
-import exp from "constants";
-
-const test = <A>(
-	name: string,
-	fn: (
-		ctx: TestContext
-	) => Effect.Effect<
-		A,
-		Error.IndexedDBError,
-		Scope.Scope | IndexedDB.IndexedDB
-	>
-) => {
-	const factory = new IDBFactory(); // create a fresh instance for each test
-	const idbLayer = IndexedDB.layer(factory);
-
-	it(name, async (ctx) => {
-		const res = await Effect.runPromiseExit(
-			fn(ctx).pipe(Effect.scoped, Effect.provide(idbLayer), Effect.orDie)
-		);
-
-		if (res._tag === "Failure") {
-			throw res;
-		}
-	});
-};
+import { test } from "./utils";
 
 const testDb = Effect.flatMap(IndexedDB.IndexedDB, (db) =>
 	db.open({

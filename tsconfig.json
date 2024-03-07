@@ -2,7 +2,7 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "outDir": "build/esm",
-    "rootDir": "src",
+    "rootDir": ".",
     "tsBuildInfoFile": ".tsbuildinfo/src.tsbuildinfo",
     "isolatedModules": true,
     "composite": true,
@@ -26,7 +26,6 @@
   },
   "include": [
     "src",
-    "sandbox/KeyValueStore.ts",
   ],
   "exclude": [
     "node_modules",
