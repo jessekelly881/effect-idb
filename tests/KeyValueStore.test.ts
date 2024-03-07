@@ -31,4 +31,30 @@ describe("KeyValueStore", () => {
 
 			ctx.expect(value).toBeNone();
 		}).pipe(Effect.provide(testKvLayer)));
+
+	test("remove", (ctx) =>
+		Effect.gen(function* (_) {
+			const kv = yield* _(KeyValueStore.KeyValueStore);
+			yield* _(kv.set("foo", "bar"));
+			yield* _(kv.remove("foo"));
+
+			const value = yield* _(kv.get("foo"));
+			const length = yield* _(kv.size);
+
+			ctx.expect(value).toBeNone();
+			ctx.expect(length).toEqual(0);
+		}).pipe(Effect.provide(testKvLayer)));
+
+	test("clear", (ctx) =>
+		Effect.gen(function* (_) {
+			const kv = yield* _(KeyValueStore.KeyValueStore);
+			yield* _(kv.set("foo", "bar"));
+			yield* _(kv.clear);
+
+			const value = yield* _(kv.get("foo"));
+			const length = yield* _(kv.size);
+
+			ctx.expect(value).toBeNone();
+			ctx.expect(length).toEqual(0);
+		}).pipe(Effect.provide(testKvLayer)));
 });

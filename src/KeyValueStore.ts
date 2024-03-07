@@ -103,7 +103,15 @@ export const layer = (
 						Effect.scoped,
 						Effect.orDie // FIXME: Map to PlatformError
 					),
-				clear: Effect.succeed(undefined) // FIXME: Implement. IDBObjectStore.clear()
+				clear: db
+					.transaction([storeName], (store) =>
+						Effect.all([store[storeName].clear])
+					)
+					.pipe(
+						Effect.map((as) => as[0]),
+						Effect.scoped,
+						Effect.orDie // FIXME: Map to PlatformError
+					)
 			});
 		})
 	);
