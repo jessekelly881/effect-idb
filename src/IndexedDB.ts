@@ -6,7 +6,7 @@ import * as Error from "@/Error";
 import * as Store from "@/Store";
 import { open } from "@/internal/open";
 import { wrapRequest } from "@/utils";
-import { Context, Effect, Layer, Scope } from "effect";
+import { Context, Effect, Layer, Scope, Order } from "effect";
 
 /**
  * @category models
@@ -106,6 +106,14 @@ export class IndexedDB extends Context.Tag("effect-idb/IndexedDB")<
 		deleteDatabase: (
 			name: string
 		) => Effect.Effect<void, Error.IndexedDBError>;
+
+		/**
+		 * Uses the IDBFactory.cmp function to compare two keys
+		 *
+		 * @type {Order.Order<IDBValidKey>}
+		 * @since 1.0.0
+		 */
+		cmp: Order.Order<IDBValidKey>;
 	}
 >() {}
 
@@ -128,6 +136,7 @@ export const layer = (factory: IDBFactory) =>
 						new Error.IndexedDBError({
 							message: "Couldn't delete database"
 						})
-				)
+				),
+			cmp: Order.make((a, b) => factory.cmp(a, b) as -1 | 0 | 1) // FIXME: this is unsafe. factory.cmp can throw
 		})
 	);

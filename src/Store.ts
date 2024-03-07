@@ -99,12 +99,3 @@ export interface Store {
 	add: (value: unknown, key: IDBValidKey) => Effect.Effect<Add>;
 	delete: (key: IDBValidKey) => Effect.Effect<Delete>;
 }
-
-/**
- * @since 1.0.0
- */
-export const createStore = (store: string): Store => ({
-	add: add(store),
-	get: _get(store),
-	delete: _delete(store)
-});

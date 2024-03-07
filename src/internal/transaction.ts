@@ -7,6 +7,16 @@ import * as Store from "@/Store";
 import { wrapRequest } from "@/utils";
 import { Effect, Exit, Option, ReadonlyRecord, Scope } from "effect";
 
+/**
+ * @since 1.0.0
+ */
+export const createStore = (store: string): Store.Store => ({
+	// Actions
+	add: Store.add(store),
+	get: Store.get(store),
+	delete: Store.delete(store)
+});
+
 /** @internal */
 export const transaction =
 	(idb: IDBDatabase) =>
@@ -25,7 +35,7 @@ export const transaction =
 				program(
 					ReadonlyRecord.fromIterableWith(stores, (store) => [
 						store,
-						Store.createStore(store)
+						createStore(store)
 					])
 				)
 			);

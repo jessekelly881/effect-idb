@@ -1,9 +1,10 @@
-import { Effect, Option, Scope } from "effect";
+import { Effect, Scope } from "effect";
 import { TestContext, describe, it } from "vitest";
 import * as Error from "../src/Error";
 import * as IndexedDB from "../src/IndexedDB";
 import { IDBFactory } from "fake-indexeddb";
 import "./Option";
+import exp from "constants";
 
 const test = <A>(
 	name: string,
@@ -69,6 +70,16 @@ describe("IndexedDB", () => {
 			yield* _(idb.deleteDatabase("store"));
 			const dbsAfter = yield* _(idb.databases);
 			ctx.expect(dbsAfter.map((db) => db.name)).toEqual([]);
+		}));
+
+	test("cmp", (ctx) =>
+		Effect.gen(function* (_) {
+			const idb = yield* _(IndexedDB.IndexedDB);
+
+			ctx.expect(idb.cmp(1, 2)).toBe(-1);
+			ctx.expect(idb.cmp("a", 2)).toBe(1);
+			ctx.expect(idb.cmp(2, "a")).toBe(-1);
+			ctx.expect(idb.cmp(1, 1)).toBe(0);
 		}));
 
 	test("get <None>", (ctx) =>
