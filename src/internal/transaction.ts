@@ -15,7 +15,8 @@ export const createStore = (store: string): Store.Store => ({
 	add: Store.add(store),
 	get: Store.get(store),
 	delete: Store.delete(store),
-	clear: Store.clear(store)
+	clear: Store.clear(store),
+	count: Store.count(store)
 });
 
 /** @internal */
@@ -109,6 +110,16 @@ export const transaction =
 									() =>
 										new Error.IndexedDBError({
 											message: "Error clearing store"
+										})
+								);
+							}
+
+							case "Count": {
+								return wrapRequest(
+									() => store.count(),
+									() =>
+										new Error.IndexedDBError({
+											message: "Error counting store"
 										})
 								);
 							}

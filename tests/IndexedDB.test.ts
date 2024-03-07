@@ -95,4 +95,21 @@ describe("IndexedDB", () => {
 
 			ctx.expect(res[2]).toBeNone();
 		}));
+
+	test("count", (ctx) =>
+		Effect.gen(function* (_) {
+			const db = yield* _(testDb);
+			const [countBefore, , countAfter] = yield* _(
+				db.transaction(["store"], ({ store }) =>
+					Effect.all([
+						store.count(),
+						store.add("val", "key1"),
+						store.count()
+					])
+				)
+			);
+
+			ctx.expect(countBefore).toBe(0);
+			ctx.expect(countAfter).toBe(1);
+		}));
 });
