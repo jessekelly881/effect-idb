@@ -87,7 +87,7 @@ describe("IndexedDB", () => {
 				db.transaction(["store"], ({ store }) =>
 					Effect.all([
 						store.add("val", "key1"),
-						store.clear(),
+						store.clear,
 						store.get("key1")
 					])
 				)
@@ -102,9 +102,9 @@ describe("IndexedDB", () => {
 			const [countBefore, , countAfter] = yield* _(
 				db.transaction(["store"], ({ store }) =>
 					Effect.all([
-						store.count(),
+						store.count,
 						store.add("val", "key1"),
-						store.count()
+						store.count
 					])
 				)
 			);

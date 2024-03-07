@@ -64,13 +64,13 @@ export const add =
 /**
  * @since 1.0.0
  */
-export const clear = (store: string) => (): Effect.Effect<Clear> =>
+export const clear = (store: string): Effect.Effect<Clear> =>
 	Effect.succeed({ _tag: "Action", _op: "Clear", store });
 
 /**
  * @since 1.0.0
  */
-export const count = (store: string) => (): Effect.Effect<Count> =>
+export const count = (store: string): Effect.Effect<Count> =>
 	Effect.succeed({ _tag: "Action", _op: "Count", store });
 
 const _delete =
@@ -126,6 +126,6 @@ export interface Store {
 	get: (key: string) => Effect.Effect<Get>;
 	add: (value: unknown, key: IDBValidKey) => Effect.Effect<Add>;
 	delete: (key: IDBValidKey) => Effect.Effect<Delete>;
-	clear: () => Effect.Effect<Clear>;
-	count: () => Effect.Effect<Count>;
+	clear: Effect.Effect<Clear>;
+	count: Effect.Effect<Count>;
 }
