@@ -94,7 +94,15 @@ export const layer = (
 							Effect.orDie // FIXME: Map to PlatformError
 						),
 
-				size: Effect.succeed(0), // FIXME: Implement. IDBObjectStore.count()
+				size: db
+					.transaction([storeName], (store) =>
+						Effect.all([store[storeName].count])
+					)
+					.pipe(
+						Effect.map((as) => as[0]),
+						Effect.scoped,
+						Effect.orDie // FIXME: Map to PlatformError
+					),
 				clear: Effect.succeed(undefined) // FIXME: Implement. IDBObjectStore.clear()
 			});
 		})

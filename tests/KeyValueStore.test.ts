@@ -18,10 +18,10 @@ describe("KeyValueStore", () => {
 			yield* _(kv.set("/foo/bar", "bar"));
 
 			const value = yield* _(kv.get("/foo/bar"));
-			// const length = yield* _(kv.size);
+			const length = yield* _(kv.size);
 
 			ctx.expect(value).toBeSome("bar");
-			// ctx.expect(length).toEqual(1); // FIXME: Re-add when kv.size is implemented
+			ctx.expect(length).toEqual(1);
 		}).pipe(Effect.provide(testKvLayer)));
 
 	test("get <None>", (ctx) =>
