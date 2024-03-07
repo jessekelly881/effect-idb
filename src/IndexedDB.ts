@@ -5,6 +5,7 @@
 import * as Error from "@/Error";
 import * as Store from "@/Store";
 import { open } from "@/internal/open";
+import { wrapRequest } from "@/utils";
 import { Context, Effect, Layer, Scope } from "effect";
 
 /**
@@ -97,6 +98,14 @@ export class IndexedDB extends Context.Tag("effect-idb/IndexedDB")<
 		 * @since 1.0.0
 		 */
 		databases: Effect.Effect<IDBDatabaseInfo[]>;
+
+		/**
+		 * Delete a Database. Will block until all connections are closed.
+		 * @since 1.0.0
+		 */
+		deleteDatabase: (
+			name: string
+		) => Effect.Effect<void, Error.IndexedDBError>;
 	}
 >() {}
 
@@ -111,7 +120,14 @@ export const layer = (factory: IDBFactory) =>
 		IndexedDB,
 		IndexedDB.of({
 			open: open(factory),
-			databases: Effect.promise(() => factory.databases())
-			// deleteDatabase
+			databases: Effect.promise(() => factory.databases()),
+			deleteDatabase: (name: string) =>
+				wrapRequest(
+					() => factory.deleteDatabase(name),
+					() =>
+						new Error.IndexedDBError({
+							message: "Couldn't delete database"
+						})
+				)
 		})
 	);

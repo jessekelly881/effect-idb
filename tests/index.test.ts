@@ -41,7 +41,7 @@ const testDb = Effect.flatMap(IndexedDB.IndexedDB, (db) =>
 );
 
 describe("IndexedDB", () => {
-	test("creates db", (ctx) =>
+	test("create db", (ctx) =>
 		Effect.gen(function* (_) {
 			const idb = yield* _(IndexedDB.IndexedDB);
 			const db = yield* _(testDb);
@@ -50,9 +50,25 @@ describe("IndexedDB", () => {
 
 			ctx.expect(db.name).toBe("store");
 			ctx.expect(db.version).toBe(1);
-			ctx.expect(
-				databases.find((db) => db.name === "store")
-			).toBeTruthy();
+			ctx.expect(databases.map((db) => db.name)).toEqual(["store"]);
+		}));
+
+	test("create,delete", (ctx) =>
+		Effect.gen(function* (_) {
+			const idb = yield* _(IndexedDB.IndexedDB);
+			yield* _(
+				idb.open({
+					name: "store"
+				}),
+				Effect.scoped
+			);
+
+			const dbsBefore = yield* _(idb.databases);
+			ctx.expect(dbsBefore.map((db) => db.name)).toEqual(["store"]);
+
+			yield* _(idb.deleteDatabase("store"));
+			const dbsAfter = yield* _(idb.databases);
+			ctx.expect(dbsAfter.map((db) => db.name)).toEqual([]);
 		}));
 
 	test("get <None>", (ctx) =>
