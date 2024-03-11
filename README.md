@@ -1,4 +1,6 @@
 # effect-idb
+[![Check](https://github.com/jessekelly881/effect-idb/actions/workflows/check.yml/badge.svg)](https://github.com/jessekelly881/effect-idb/actions/workflows/check.yml)
+[![Npm package monthly downloads](https://badgen.net/npm/dm/effect-schema-compilers)](https://npmjs.com/package/effect-idb)
 
 An IndexedDB wrapper for Effect.
 
