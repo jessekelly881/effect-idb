@@ -5,7 +5,7 @@
 import * as Error from "@/Error";
 import type { Database, Update } from "@/IndexedDB";
 import { transaction } from "@/internal/transaction";
-import { Effect, Scope } from "effect";
+import { Effect, FiberSet, Scope } from "effect";
 
 /** @internal */
 const createDatabase = (db: IDBDatabase): Database => ({
@@ -51,6 +51,7 @@ export const open =
 	}): Effect.Effect<Database, Error.IndexedDBError, Scope.Scope> =>
 		Effect.gen(function* (_) {
 			const scope = yield* _(Scope.Scope);
+			const run = yield* _(FiberSet.makeRuntime<never>());
 			const db = yield* _(
 				Effect.async<IDBDatabase, Error.IndexedDBError>((resume) => {
 					const openRequest = factory.open(name, version);
@@ -76,8 +77,8 @@ export const open =
 					};
 
 					if (onUpgrade) {
-						openRequest.onupgradeneeded = async () =>
-							await Effect.runPromise(
+						openRequest.onupgradeneeded = () =>
+							run(
 								onUpgrade(
 									createUpdateDatabase(openRequest.result)
 								)
