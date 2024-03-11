@@ -52,7 +52,7 @@
     "@changesets/cli": "^2.26.0",
     "@effect/build-utils": "^0.7.6",
     "@effect/docgen": "^0.3.8",
-    "@effect/dtslint": "^0.0.4",
+    "@effect/dtslint": "^0.0.5",
     "@fast-check/vitest": "^0.1.0",
     "@types/node": "^20.8.4",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
@@ -74,7 +74,7 @@
     "vitest": "^1.0.1"
   },
   "dependencies": {
-    "@effect/platform": "^0.46.3",
+    "@effect/platform": "^0.47.1",
     "@effect/schema": "^0.63.2",
     "effect": "^2.4.1"
   },
