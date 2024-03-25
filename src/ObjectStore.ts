@@ -6,6 +6,9 @@ import { IndexedDBError } from "@/Error";
 import { wrapRequest } from "@/utils";
 import { Effect, Option, Context } from "effect";
 
+/**
+ * @since 1.0.0
+ */
 export interface ObjectStore {
 	get: (
 		key: IDBValidKey
@@ -25,8 +28,14 @@ export interface ObjectStore {
 	) => Effect.Effect<void, IndexedDBError>;
 }
 
+/**
+ * @since 1.0.0
+ */
 export const ObjectStore = Context.GenericTag<ObjectStore>("ObjectStore");
 
+/**
+ * @since 1.0.0
+ */
 export const make = (idbStore: IDBObjectStore): ObjectStore => ({
 	get: (key: IDBValidKey) =>
 		wrapRequest(

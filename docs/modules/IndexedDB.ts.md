@@ -31,12 +31,14 @@ Added in v1.0.0
 export interface Database {
   /**
    * Database name
+   *
    * @since 1.0.0
    */
   name: string
 
   /**
    * Database version
+   *
    * @since 1.0.0
    */
   version: number
@@ -49,12 +51,14 @@ export interface Database {
   objectStoreNames: DOMStringList
 
   /**
+   * Creates a transaction context.
+   *
    * @since 1.0.0
    */
-  transaction: <I, R, const Stores extends string[], Actions extends Store.Action[]>(
-    stores: Stores,
-    program: (_: Record<Stores[number], Store.ObjectStore>) => Effect.Effect<Actions, I, R>
-  ) => Effect.Effect<Store.ReturnMap<Actions>, I | Error.IndexedDBError, R | Scope.Scope>
+  transaction: (
+    mode: IDBTransactionMode,
+    storeNames: string[]
+  ) => Effect.Effect<Transaction.Transaction, Error.IndexedDBError>
 }
 ```
 

@@ -26,10 +26,10 @@ Convers an IDBRequest into an Effect
 **Signature**
 
 ```ts
-export declare const wrapRequest: <T>(
+export declare const wrapRequest: <T, A, E, R>(
   request: () => IDBRequest<T>,
-  onError: (err: DOMException | null) => Error.IndexedDBError
-) => Effect.Effect<T, Error.IndexedDBError, never>
+  onError: (err: DOMException | null) => Effect.Effect<A, E, R>
+) => Effect.Effect<T | A, E, R>
 ```
 
 Added in v1.0.0
