@@ -4,10 +4,9 @@
 
 import * as Error from "@/Error";
 import type { Database, Update } from "@/IndexedDB";
-import { transaction } from "@/internal/transaction";
+import { transaction } from "@/Transaction";
 import { Effect, FiberSet, Scope } from "effect";
 
-/** @internal */
 const createDatabase = (db: IDBDatabase): Database => ({
 	version: db.version,
 	name: db.name,

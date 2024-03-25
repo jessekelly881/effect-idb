@@ -1,6 +1,6 @@
 import { Effect } from "effect";
 import { describe } from "vitest";
-import * as IndexedDB from "../src/IndexedDB";
+import * as IndexedDB from "@/IndexedDB";
 import "./Option";
 import { test } from "./utils";
 
@@ -56,58 +56,54 @@ describe("IndexedDB", () => {
 			ctx.expect(idb.cmp(1, 1)).toBe(0);
 		}));
 
+	test("transaction store names", (ctx) =>
+		Effect.gen(function* (_) {
+			const db = yield* _(testDb);
+			const t = yield* _(db.transaction("readwrite", ["store"]));
+			ctx.expect(t.objectStoreNames).toEqual(["store"]);
+		}));
+
 	test("get <None>", (ctx) =>
 		Effect.gen(function* (_) {
 			const db = yield* _(testDb);
-			const res = yield* _(
-				db.transaction(["store"], ({ store }) =>
-					Effect.all([store.get("key1")])
-				)
-			);
-
-			ctx.expect(res[0]).toBeNone();
+			const t = yield* _(db.transaction("readwrite", ["store"]));
+			const store = t.objectStore("store");
+			const res = yield* _(store.get("none"));
+			ctx.expect(res).toBeNone();
 		}));
 
 	test("add, get", (ctx) =>
 		Effect.gen(function* (_) {
 			const db = yield* _(testDb);
-			const res = yield* _(
-				db.transaction(["store"], ({ store }) =>
-					Effect.all([store.add("val", "key1"), store.get("key1")])
-				)
-			);
+			const t = yield * _(db.transaction("readwrite", ["store"]));
+			const store = t.objectStore("store");
+			yield * _(store.add("val", "key1"));
+			const res = yield * _(store.get("key1"));
 
-			ctx.expect(res[1]).toBeSome("val");
+			ctx.expect(res).toBeSome("val");
 		}));
 
 	test("add, clear, get <None>", (ctx) =>
 		Effect.gen(function* (_) {
 			const db = yield* _(testDb);
-			const res = yield* _(
-				db.transaction(["store"], ({ store }) =>
-					Effect.all([
-						store.add("val", "key1"),
-						store.clear,
-						store.get("key1")
-					])
-				)
-			);
+			const t = yield * _(db.transaction("readwrite", ["store"]));
+			const store = t.objectStore("store");
 
-			ctx.expect(res[2]).toBeNone();
+			yield * _(store.add("val", "key1"));
+			yield * _(store.clear);
+			const res = yield * _(store.get("none"));
+			ctx.expect(res).toBeNone();
 		}));
 
 	test("count", (ctx) =>
 		Effect.gen(function* (_) {
 			const db = yield* _(testDb);
-			const [countBefore, , countAfter] = yield* _(
-				db.transaction(["store"], ({ store }) =>
-					Effect.all([
-						store.count,
-						store.add("val", "key1"),
-						store.count
-					])
-				)
-			);
+			const t = yield * _(db.transaction("readwrite", ["store"]));
+			const store = t.objectStore("store");
+
+			const countBefore = yield * _(store.count);
+			yield * _(store.add("val", "key1"));
+			const countAfter = yield * _(store.count);
 
 			ctx.expect(countBefore).toBe(0);
 			ctx.expect(countAfter).toBe(1);
@@ -116,16 +112,12 @@ describe("IndexedDB", () => {
 	test("put, get", (ctx) =>
 		Effect.gen(function* (_) {
 			const db = yield* _(testDb);
-			const res = yield* _(
-				db.transaction(["store"], ({ store }) =>
-					Effect.all([
-						store.put("val", "key1"),
-						store.put("val-new", "key1"),
-						store.get("key1")
-					])
-				)
-			);
+			const t = yield * _(db.transaction("readwrite", ["store"]));
+			const store = t.objectStore("store");
+			yield * _(store.put("val", "key1"));
+			yield * _(store.put("val-new", "key1"));
+			const res = yield * _(store.get("key1"));
 
-			ctx.expect(res[2]).toBeSome("val-new");
+			ctx.expect(res).toBeSome("val-new");
 		}));
 });

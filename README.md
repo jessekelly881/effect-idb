@@ -1,4 +1,5 @@
 # effect-idb
+
 [![Check](https://github.com/jessekelly881/effect-idb/actions/workflows/check.yml/badge.svg)](https://github.com/jessekelly881/effect-idb/actions/workflows/check.yml)
 [![Npm package monthly downloads](https://badgen.net/npm/dm/effect-schema-compilers)](https://npmjs.com/package/effect-idb)
 
@@ -31,22 +32,22 @@ import { IndexedDB } from "effect-idb";
 import { Effect } from "effect";
 
 Effect.gen(function* (_) {
- const idb = yield* _(IndexedDB.IndexedDB);
- const db = yield* _(
-  idb.open({
-   name: "store21",
-   version: 2,
-   onUpgrade: (db) =>
-    Effect.gen(function* (_) {
-     yield* _(db.createObjectStore("store").pipe(Effect.orDie));
+  const idb = yield* _(IndexedDB.IndexedDB);
+  const db = yield* _(
+    idb.open({
+     name: "store21",
+     version: 2,
+     onUpgrade: (db) =>
+      Effect.gen(function* (_) {
+       yield* _(db.createObjectStore("store").pipe(Effect.orDie));
+      })
     })
-  })
- );
- yield* _(
-  db.transaction(["store"], ({ store }) =>
-   Effect.all([store.add({ a: 1 }, "a")])
-  )
- );
+  );
+
+  const t = yield * _(db.transaction("readwrite", ["store"]));
+  const store = t.objectStore("store");
+  yield * _(store.add("val", "key1"));
+  const res = yield * _(store.get("key1"));
 }).pipe(
  Effect.provide(IndexedDB.layer(indexedDB)),
  Effect.scoped,

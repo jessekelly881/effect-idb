@@ -3,151 +3,17 @@
  */
 
 import * as Error from "@/Error";
-import * as ObjectStore from "@/ObjectStore";
-import { wrapRequest } from "@/utils";
-import { Effect, Exit, Option, ReadonlyRecord, Scope } from "effect";
-
-/**
- * @since 1.0.0
- */
-export const createStore = (store: string): ObjectStore.ObjectStore => ({
-	// Actions
-	add: ObjectStore.add(store),
-	put: ObjectStore.put(store),
-	get: ObjectStore.get(store),
-	delete: ObjectStore.delete(store),
-	clear: ObjectStore.clear(store),
-	count: ObjectStore.count(store)
-});
+import * as Transaction from "@/Transaction";
+import { Effect, Exit } from "effect";
 
 /** @internal */
 export const transaction =
 	(idb: IDBDatabase) =>
-	<I, R, Stores extends string[], Actions extends ObjectStore.Action[]>(
-		stores: Stores,
-		program: (
-			_: Record<Stores[number], ObjectStore.ObjectStore>
-		) => Effect.Effect<Actions, I, R>
-	): Effect.Effect<
-		ObjectStore.ReturnMap<Actions>,
-		I | Error.IndexedDBError,
-		R | Scope.Scope
-	> =>
-		Effect.gen(function* (_) {
-			const actions = yield* _(
-				program(
-					ReadonlyRecord.fromIterableWith(stores, (store) => [
-						store,
-						createStore(store)
-					])
-				)
-			);
-
-			const t = yield* _(
-				Effect.acquireRelease(
-					Effect.try({
-						try: () => idb.transaction(stores, "readwrite"),
-						catch: () =>
-							new Error.IndexedDBError({
-								message: ""
-							})
-					}),
-
-					// Abort transaction on interrupt
-					(t, exit) =>
-						Exit.isInterrupted(exit)
-							? Effect.sync(() => t.abort())
-							: Effect.unit
-				)
-			);
-
-			const storeHandles = ReadonlyRecord.fromIterableWith(
-				stores,
-				(store) => [store, t.objectStore(store)]
-			);
-
-			const ret = yield* _(
-				Effect.all(
-					actions.map((action) => {
-						const store = storeHandles[action.store];
-
-						switch (action._op) {
-							case "Add": {
-								return wrapRequest(
-									() => store.add(action.value, action.key),
-									() =>
-										new Error.IndexedDBError({
-											message:
-												"Error adding value to store"
-										})
-								);
-							}
-
-							case "Get": {
-								return wrapRequest(
-									() => store.get(action.key),
-									() =>
-										new Error.IndexedDBError({
-											message:
-												"Error getting value from store"
-										})
-								).pipe(Effect.map(Option.fromNullable));
-							}
-
-							case "Delete": {
-								return wrapRequest(
-									() => store.delete(action.key),
-									() =>
-										new Error.IndexedDBError({
-											message:
-												"Error getting value from store"
-										})
-								);
-							}
-
-							case "Clear": {
-								return wrapRequest(
-									() => store.clear(),
-									() =>
-										new Error.IndexedDBError({
-											message: "Error clearing store"
-										})
-								);
-							}
-
-							case "Count": {
-								return wrapRequest(
-									() => store.count(),
-									() =>
-										new Error.IndexedDBError({
-											message: "Error counting store"
-										})
-								);
-							}
-
-							case "Put": {
-								return wrapRequest(
-									() => store.put(action.value, action.key),
-									() =>
-										new Error.IndexedDBError({
-											message:
-												"Error putting value to store"
-										})
-								);
-							}
-						}
-					})
-				)
-			);
-
-			// Wait for transaction.oncomplete
-			yield* _(
-				Effect.async((resume) => {
-					t.oncomplete = () => {
-						resume(Effect.succeed(null));
-					};
-				})
-			);
-
-			return ret as ObjectStore.ReturnMap<Actions>;
+	(
+		mode: IDBTransactionMode,
+		storeNames: string[]
+	): Effect.Effect<Transaction.Transaction, Error.IndexedDBError> =>
+		Effect.async((cb) => {
+			const tx = idb.transaction(storeNames, mode);
+			cb(Exit.succeed(Transaction.make(tx)));
 		});

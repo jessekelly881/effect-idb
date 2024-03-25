@@ -10,7 +10,7 @@
     "declarationMap": true,
     "declarationDir": "build/dts",
     "strict": true,
-    "target": "ES2016",
+    "target": "ESNext",
     "module": "commonjs",
     "noImplicitAny": true,
     "removeComments": true,
@@ -26,6 +26,7 @@
   },
   "include": [
     "src",
+    "tests"
   ],
   "exclude": [
     "node_modules",

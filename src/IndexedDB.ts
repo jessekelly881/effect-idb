@@ -3,7 +3,7 @@
  */
 
 import * as Error from "@/Error";
-import * as ObjectStore from "@/ObjectStore";
+import * as Transaction from "@/Transaction";
 import { open } from "@/internal/open";
 import { wrapRequest } from "@/utils";
 import { Context, Effect, Layer, Scope, Order } from "effect";
@@ -15,12 +15,14 @@ import { Context, Effect, Layer, Scope, Order } from "effect";
 export interface Database {
 	/**
 	 * Database name
+	 *
 	 * @since 1.0.0
 	 */
 	name: string;
 
 	/**
 	 * Database version
+	 *
 	 * @since 1.0.0
 	 */
 	version: number;
@@ -33,23 +35,14 @@ export interface Database {
 	objectStoreNames: DOMStringList;
 
 	/**
+	 * Creates a transaction context.
+	 *
 	 * @since 1.0.0
 	 */
-	transaction: <
-		I,
-		R,
-		const Stores extends string[],
-		Actions extends ObjectStore.Action[]
-	>(
-		stores: Stores,
-		program: (
-			_: Record<Stores[number], ObjectStore.ObjectStore>
-		) => Effect.Effect<Actions, I, R>
-	) => Effect.Effect<
-		ObjectStore.ReturnMap<Actions>,
-		I | Error.IndexedDBError,
-		R | Scope.Scope
-	>;
+	transaction: (
+		mode: IDBTransactionMode,
+		storeNames: string[]
+	) => Effect.Effect<Transaction.Transaction, Error.IndexedDBError>;
 }
 
 /**

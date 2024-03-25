@@ -59,57 +59,46 @@ export const layer = (
 
 			return KeyValueStore.make({
 				set: (key, value) =>
-					db
-						.transaction([storeName], (store) =>
-							Effect.all([store[storeName].put(value, key)])
-						)
-						.pipe(
-							Effect.map((as) => as[0]),
-							Effect.scoped,
-							Effect.orDie // FIXME: Map to PlatformError
-						),
+					Effect.gen(function* (_) {
+						const t = yield* _(
+							db.transaction("readwrite", [storeName])
+						);
+						const store = t.objectStore(storeName);
+						yield* _(store.put(value, key));
+					}).pipe(Effect.orDie), // FIXME: Map to PlatformError
 
 				get: (key) =>
-					db
-						.transaction([storeName], (store) =>
-							Effect.all([store[storeName].get(key)])
-						)
-						.pipe(
-							Effect.map((as) => as[0] as Option.Option<string>),
-							Effect.scoped,
-							Effect.orDie // FIXME: Map to PlatformError
-						),
-				remove: (key) =>
-					db
-						.transaction(
-							[storeName],
-							(store) =>
-								Effect.all([store[storeName].delete(key)]) // FIXME: Use put instead of add
-						)
-						.pipe(
-							Effect.map((as) => as[0]),
-							Effect.scoped,
-							Effect.orDie // FIXME: Map to PlatformError
-						),
+					Effect.gen(function* (_) {
+						const t = yield* _(
+							db.transaction("readonly", [storeName])
+						);
+						const store = t.objectStore(storeName);
+						const res = yield* _(store.get(key));
+						return res as Option.Option<string>; // FIXME: No guarantee that this is a string.
+					}).pipe(Effect.orDie), // FIXME: Map to PlatformError
 
-				size: db
-					.transaction([storeName], (store) =>
-						Effect.all([store[storeName].count])
-					)
-					.pipe(
-						Effect.map((as) => as[0]),
-						Effect.scoped,
-						Effect.orDie // FIXME: Map to PlatformError
-					),
-				clear: db
-					.transaction([storeName], (store) =>
-						Effect.all([store[storeName].clear])
-					)
-					.pipe(
-						Effect.map((as) => as[0]),
-						Effect.scoped,
-						Effect.orDie // FIXME: Map to PlatformError
-					)
+				remove: (key) =>
+					Effect.gen(function* (_) {
+						const t = yield* _(
+							db.transaction("readwrite", [storeName])
+						);
+						const store = t.objectStore(storeName);
+						yield* _(store.delete(key));
+					}).pipe(Effect.orDie), // FIXME: Map to PlatformError
+
+				size: Effect.gen(function* (_) {
+					const t = yield* _(db.transaction("readonly", [storeName]));
+					const store = t.objectStore(storeName);
+					return yield* _(store.count);
+				}).pipe(Effect.orDie), // FIXME: Map to PlatformError
+
+				clear: Effect.gen(function* (_) {
+					const t = yield* _(
+						db.transaction("readwrite", [storeName])
+					);
+					const store = t.objectStore(storeName);
+					yield* _(store.clear);
+				}).pipe(Effect.orDie) // FIXME: Map to PlatformError
 			});
 		})
 	);
