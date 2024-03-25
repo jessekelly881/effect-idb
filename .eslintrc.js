@@ -24,6 +24,7 @@ module.exports = {
 	plugins: ["@typescript-eslint", "deprecation"],
 	rules: {
 		"deprecation/deprecation": "warn",
-		"@typescript-eslint/no-namespace": "off"
+		"@typescript-eslint/no-namespace": "off",
+		"@typescript-eslint/no-explicit-any": "warn"
 	}
 };
