@@ -3,33 +3,33 @@
  */
 
 import * as Error from "@/Error";
-import * as Store from "@/ObjectStore";
+import * as ObjectStore from "@/ObjectStore";
 import { wrapRequest } from "@/utils";
 import { Effect, Exit, Option, ReadonlyRecord, Scope } from "effect";
 
 /**
  * @since 1.0.0
  */
-export const createStore = (store: string): Store.ObjectStore => ({
+export const createStore = (store: string): ObjectStore.ObjectStore => ({
 	// Actions
-	add: Store.add(store),
-	put: Store.put(store),
-	get: Store.get(store),
-	delete: Store.delete(store),
-	clear: Store.clear(store),
-	count: Store.count(store)
+	add: ObjectStore.add(store),
+	put: ObjectStore.put(store),
+	get: ObjectStore.get(store),
+	delete: ObjectStore.delete(store),
+	clear: ObjectStore.clear(store),
+	count: ObjectStore.count(store)
 });
 
 /** @internal */
 export const transaction =
 	(idb: IDBDatabase) =>
-	<I, R, Stores extends string[], Actions extends Store.Action[]>(
+	<I, R, Stores extends string[], Actions extends ObjectStore.Action[]>(
 		stores: Stores,
 		program: (
-			_: Record<Stores[number], Store.ObjectStore>
+			_: Record<Stores[number], ObjectStore.ObjectStore>
 		) => Effect.Effect<Actions, I, R>
 	): Effect.Effect<
-		Store.ReturnMap<Actions>,
+		ObjectStore.ReturnMap<Actions>,
 		I | Error.IndexedDBError,
 		R | Scope.Scope
 	> =>
@@ -149,5 +149,5 @@ export const transaction =
 				})
 			);
 
-			return ret as Store.ReturnMap<Actions>;
+			return ret as ObjectStore.ReturnMap<Actions>;
 		});

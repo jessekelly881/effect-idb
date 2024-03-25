@@ -3,7 +3,7 @@
  */
 
 import * as Error from "@/Error";
-import * as Store from "@/ObjectStore";
+import * as ObjectStore from "@/ObjectStore";
 import { open } from "@/internal/open";
 import { wrapRequest } from "@/utils";
 import { Context, Effect, Layer, Scope, Order } from "effect";
@@ -39,14 +39,14 @@ export interface Database {
 		I,
 		R,
 		const Stores extends string[],
-		Actions extends Store.Action[]
+		Actions extends ObjectStore.Action[]
 	>(
 		stores: Stores,
 		program: (
-			_: Record<Stores[number], Store.ObjectStore>
+			_: Record<Stores[number], ObjectStore.ObjectStore>
 		) => Effect.Effect<Actions, I, R>
 	) => Effect.Effect<
-		Store.ReturnMap<Actions>,
+		ObjectStore.ReturnMap<Actions>,
 		I | Error.IndexedDBError,
 		R | Scope.Scope
 	>;
