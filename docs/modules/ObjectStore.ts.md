@@ -1,10 +1,10 @@
 ---
-title: Store.ts
+title: ObjectStore.ts
 nav_order: 7
 parent: Modules
 ---
 
-## Store overview
+## ObjectStore overview
 
 Added in v1.0.0
 
@@ -14,9 +14,9 @@ Added in v1.0.0
 
 - [utils](#utils)
   - [Action (type alias)](#action-type-alias)
+  - [ObjectStore (interface)](#objectstore-interface)
   - [Return (type alias)](#return-type-alias)
   - [ReturnMap (type alias)](#returnmap-type-alias)
-  - [Store (interface)](#store-interface)
   - [add](#add)
   - [clear](#clear)
   - [count](#count)
@@ -36,6 +36,23 @@ A Database Action
 
 ```ts
 export type Action = Add | Get | Delete | Clear | Count | Put
+```
+
+Added in v1.0.0
+
+## ObjectStore (interface)
+
+**Signature**
+
+```ts
+export interface ObjectStore {
+  get: (key: string) => Effect.Effect<Get>
+  add: (value: unknown, key: IDBValidKey) => Effect.Effect<Add>
+  put: (value: unknown, key: IDBValidKey) => Effect.Effect<Put>
+  delete: (key: IDBValidKey) => Effect.Effect<Delete>
+  clear: Effect.Effect<Clear>
+  count: Effect.Effect<Count>
+}
 ```
 
 Added in v1.0.0
@@ -69,23 +86,6 @@ export type ReturnMap<T> = T extends Action[]
       [K in keyof T]: Return<T[K]>
     }
   : null
-```
-
-Added in v1.0.0
-
-## Store (interface)
-
-**Signature**
-
-```ts
-export interface Store {
-  get: (key: string) => Effect.Effect<Get>
-  add: (value: unknown, key: IDBValidKey) => Effect.Effect<Add>
-  put: (value: unknown, key: IDBValidKey) => Effect.Effect<Put>
-  delete: (key: IDBValidKey) => Effect.Effect<Delete>
-  clear: Effect.Effect<Clear>
-  count: Effect.Effect<Count>
-}
 ```
 
 Added in v1.0.0

@@ -53,7 +53,7 @@ export interface Database {
    */
   transaction: <I, R, const Stores extends string[], Actions extends Store.Action[]>(
     stores: Stores,
-    program: (_: Record<Stores[number], Store.Store>) => Effect.Effect<Actions, I, R>
+    program: (_: Record<Stores[number], Store.ObjectStore>) => Effect.Effect<Actions, I, R>
   ) => Effect.Effect<Store.ReturnMap<Actions>, I | Error.IndexedDBError, R | Scope.Scope>
 }
 ```

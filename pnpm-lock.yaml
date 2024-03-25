@@ -40,6 +40,9 @@ devDependencies:
   '@effect/dtslint':
     specifier: ^0.0.5
     version: 0.0.5(typescript@5.4.2)
+  '@effect/vitest':
+    specifier: ^0.1.1
+    version: 0.1.1(effect@2.4.3)(vitest@1.3.1)
   '@fast-check/vitest':
     specifier: ^0.1.0
     version: 0.1.0(vitest@1.3.1)
@@ -567,7 +570,7 @@ packages:
     dependencies:
       doctrine: 3.0.0
       glob: 10.3.10
-      markdown-toc: git@github.com+effect-ts/markdown-toc/4bfeb0f140105440ea0d12df2fa23199cc3ec1d5
+      markdown-toc: github.com/effect-ts/markdown-toc/4bfeb0f140105440ea0d12df2fa23199cc3ec1d5
       prettier: 3.1.1
       tsx: 4.7.1
       typescript: 5.4.2
@@ -609,6 +612,16 @@ packages:
       effect: 2.4.3
       fast-check: 3.16.0
     dev: false
+
+  /@effect/vitest@0.1.1(effect@2.4.3)(vitest@1.3.1):
+    resolution: {integrity: sha512-0MUWsus4ZQ6tdwwRaHK4ttK1csu/WwBR75gZ+v/gMW22N2Cs8OewaJDm9sV3egg2iGmWjaxry+BqSRWDC6TlKg==}
+    peerDependencies:
+      effect: ^2.4.11
+      vitest: ^1.4.0
+    dependencies:
+      effect: 2.4.3
+      vitest: 1.3.1(@types/node@20.11.25)(jsdom@24.0.0)
+    dev: true
 
   /@esbuild/aix-ppc64@0.19.12:
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
@@ -2203,7 +2216,6 @@ packages:
 
   /effect@2.4.3:
     resolution: {integrity: sha512-OmIgfNgQMZsQt5l7qLQqLOUxIXq7ku8/RK3Wv3LqxSE2zMyU1mHXof5QeyCt7m9sXv3Vui52Urk1vVsEd2szMQ==}
-    dev: false
 
   /electron-to-chromium@1.4.690:
     resolution: {integrity: sha512-+2OAGjUx68xElQhydpcbqH50hE8Vs2K6TkAeLhICYfndb67CVH0UsZaijmRUE3rHlIxU1u0jxwhgVe6fK3YANA==}
@@ -5966,8 +5978,8 @@ packages:
     engines: {node: '>=12.20'}
     dev: true
 
-  git@github.com+effect-ts/markdown-toc/4bfeb0f140105440ea0d12df2fa23199cc3ec1d5:
-    resolution: {commit: 4bfeb0f140105440ea0d12df2fa23199cc3ec1d5, repo: git@github.com:effect-ts/markdown-toc.git, type: git}
+  github.com/effect-ts/markdown-toc/4bfeb0f140105440ea0d12df2fa23199cc3ec1d5:
+    resolution: {tarball: https://codeload.github.com/effect-ts/markdown-toc/tar.gz/4bfeb0f140105440ea0d12df2fa23199cc3ec1d5}
     name: markdown-toc
     version: 1.2.0
     engines: {node: '>=0.10.0'}

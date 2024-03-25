@@ -3,14 +3,14 @@
  */
 
 import * as Error from "@/Error";
-import * as Store from "@/Store";
+import * as Store from "@/ObjectStore";
 import { wrapRequest } from "@/utils";
 import { Effect, Exit, Option, ReadonlyRecord, Scope } from "effect";
 
 /**
  * @since 1.0.0
  */
-export const createStore = (store: string): Store.Store => ({
+export const createStore = (store: string): Store.ObjectStore => ({
 	// Actions
 	add: Store.add(store),
 	put: Store.put(store),
@@ -26,7 +26,7 @@ export const transaction =
 	<I, R, Stores extends string[], Actions extends Store.Action[]>(
 		stores: Stores,
 		program: (
-			_: Record<Stores[number], Store.Store>
+			_: Record<Stores[number], Store.ObjectStore>
 		) => Effect.Effect<Actions, I, R>
 	): Effect.Effect<
 		Store.ReturnMap<Actions>,

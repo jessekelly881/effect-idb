@@ -138,7 +138,7 @@ export type ReturnMap<T> = T extends Action[]
 /**
  * @since 1.0.0
  */
-export interface Store {
+export interface ObjectStore {
 	get: (key: string) => Effect.Effect<Get>;
 	add: (value: unknown, key: IDBValidKey) => Effect.Effect<Add>;
 	put: (value: unknown, key: IDBValidKey) => Effect.Effect<Put>;

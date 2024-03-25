@@ -3,7 +3,7 @@
  */
 
 import * as Error from "@/Error";
-import * as Store from "@/Store";
+import * as Store from "@/ObjectStore";
 import { open } from "@/internal/open";
 import { wrapRequest } from "@/utils";
 import { Context, Effect, Layer, Scope, Order } from "effect";
@@ -43,7 +43,7 @@ export interface Database {
 	>(
 		stores: Stores,
 		program: (
-			_: Record<Stores[number], Store.Store>
+			_: Record<Stores[number], Store.ObjectStore>
 		) => Effect.Effect<Actions, I, R>
 	) => Effect.Effect<
 		Store.ReturnMap<Actions>,

@@ -53,6 +53,7 @@
     "@effect/build-utils": "^0.7.6",
     "@effect/docgen": "^0.3.8",
     "@effect/dtslint": "^0.0.5",
+    "@effect/vitest": "^0.1.1",
     "@fast-check/vitest": "^0.1.0",
     "@types/node": "^20.8.4",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
