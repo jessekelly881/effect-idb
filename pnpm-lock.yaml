@@ -8,9 +8,6 @@ dependencies:
   '@effect/platform':
     specifier: ^0.50.3
     version: 0.50.3(@effect/schema@0.66.6)(effect@3.0.3)(ws@8.16.0)
-  effect:
-    specifier: ^3.0.3
-    version: 3.0.3
 
 devDependencies:
   '@babel/cli':
@@ -37,6 +34,9 @@ devDependencies:
   '@effect/dtslint':
     specifier: ^0.1.0
     version: 0.1.0(typescript@5.4.5)
+  '@effect/schema':
+    specifier: ^0.66.6
+    version: 0.66.6(effect@3.0.3)(fast-check@3.17.2)
   '@effect/vitest':
     specifier: ^0.3.3
     version: 0.3.3(effect@3.0.3)(vitest@1.5.0)
@@ -58,6 +58,9 @@ devDependencies:
   bun:
     specifier: ^1.0.7
     version: 1.1.4
+  effect:
+    specifier: ^3.0.3
+    version: 3.0.3
   eslint:
     specifier: ^9.0.0
     version: 9.1.0
@@ -651,7 +654,6 @@ packages:
     dependencies:
       effect: 3.0.3
       fast-check: 3.17.2
-    dev: false
 
   /@effect/vitest@0.3.3(effect@3.0.3)(vitest@1.5.0):
     resolution: {integrity: sha512-1ESqlaaIDVHMqhIcyvGSZLPVEr8gAsYgF48abxa1cKboNCzL1CHcTM8mmBxLdf6TySxJvDbmwlrmB5WLi2UdtQ==}

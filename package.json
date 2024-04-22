@@ -54,6 +54,7 @@
     "@effect/build-utils": "^0.7.6",
     "@effect/docgen": "^0.4.3",
     "@effect/dtslint": "^0.1.0",
+    "@effect/schema": "^0.66.6",
     "@effect/vitest": "^0.3.3",
     "@fast-check/vitest": "^0.1.0",
     "@types/node": "^20.8.4",
@@ -61,6 +62,7 @@
     "@typescript-eslint/parser": "^7.0.2",
     "babel-plugin-annotate-pure-calls": "^0.4.0",
     "bun": "^1.0.7",
+    "effect": "^3.0.3",
     "eslint": "^9.0.0",
     "eslint-plugin-deprecation": "^2.0.0",
     "fake-indexeddb": "^5.0.2",
@@ -78,10 +80,11 @@
     "vitest": "^1.0.1"
   },
   "dependencies": {
-    "@effect/platform": "^0.50.3",
-    "effect": "^3.0.3"
+    "@effect/platform": "^0.50.3"
   },
   "peerDependencies": {
+    "@effect/schema": "^0.66.6",
+    "effect": "^3.0.3",
     "fake-indexeddb": "^5.0.2"
   }
 }
