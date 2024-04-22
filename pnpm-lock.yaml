@@ -8,9 +8,6 @@ dependencies:
   '@effect/platform':
     specifier: ^0.50.3
     version: 0.50.3(@effect/schema@0.66.6)(effect@3.0.3)(ws@8.16.0)
-  '@effect/schema':
-    specifier: ^0.66.6
-    version: 0.66.6(effect@3.0.3)(fast-check@3.17.2)
   effect:
     specifier: ^3.0.3
     version: 3.0.3
