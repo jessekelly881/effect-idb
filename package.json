@@ -54,9 +54,9 @@
     "@effect/build-utils": "^0.7.6",
     "@effect/docgen": "^0.4.3",
     "@effect/dtslint": "^0.1.0",
-    "@effect/platform": "^0.53.4",
+    "@effect/platform": "^0.57.0",
     "@effect/schema": "^0.67.1",
-    "@effect/vitest": "^0.4.3",
+    "@effect/vitest": "^0.5.11",
     "@fast-check/vitest": "^0.1.0",
     "@types/node": "^20.8.4",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
@@ -65,8 +65,8 @@
     "bun": "^1.0.7",
     "effect": "^3.0.3",
     "eslint": "^9.0.0",
-    "eslint-plugin-deprecation": "^2.0.0",
-    "fake-indexeddb": "^5.0.2",
+    "eslint-plugin-deprecation": "^3.0.0",
+    "fake-indexeddb": "^6.0.0",
     "fast-check": "^3.14.0",
     "globals": "^15.0.0",
     "husky": "^9.0.7",
@@ -81,7 +81,7 @@
     "vitest": "^1.0.1"
   },
   "peerDependencies": {
-    "@effect/platform": "^0.53.4",
+    "@effect/platform": "^0.57.0",
     "@effect/schema": "^0.67.1",
     "effect": "^3.0.3"
   }
