@@ -54,8 +54,8 @@
     "@effect/build-utils": "^0.7.6",
     "@effect/docgen": "^0.4.3",
     "@effect/dtslint": "^0.1.0",
-    "@effect/platform": "^0.57.0",
-    "@effect/schema": "^0.67.1",
+    "@effect/platform": "^0.58.6",
+    "@effect/schema": "^0.68.7",
     "@effect/vitest": "^0.5.11",
     "@fast-check/vitest": "^0.1.0",
     "@types/node": "^20.8.4",
@@ -81,8 +81,8 @@
     "vitest": "^1.0.1"
   },
   "peerDependencies": {
-    "@effect/platform": "^0.57.0",
-    "@effect/schema": "^0.67.1",
+    "@effect/platform": "^0.58.6",
+    "@effect/schema": "^0.68.7",
     "effect": "^3.0.3"
   }
 }
