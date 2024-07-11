@@ -1,5 +1,11 @@
 # @kellyjesse881/empty
 
+## 0.0.12
+
+### Patch Changes
+
+- a564c22: updated effect deps
+
 ## 0.0.11
 
 ### Patch Changes
