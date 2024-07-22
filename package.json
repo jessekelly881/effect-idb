@@ -54,7 +54,7 @@
     "@effect/build-utils": "^0.7.6",
     "@effect/docgen": "^0.4.3",
     "@effect/dtslint": "^0.1.0",
-    "@effect/platform": "^0.58.6",
+    "@effect/platform": "^0.59.2",
     "@effect/schema": "^0.68.7",
     "@effect/vitest": "^0.6.1",
     "@fast-check/vitest": "^0.1.0",
@@ -78,10 +78,10 @@
     "typescript": "^5.2.2",
     "typescript-eslint": "^7.7.0",
     "vite": "^5.1.4",
-    "vitest": "^1.0.1"
+    "vitest": "^2.0.3"
   },
   "peerDependencies": {
-    "@effect/platform": "^0.58.6",
+    "@effect/platform": "^0.59.2",
     "@effect/schema": "^0.68.7",
     "effect": "^3.0.3"
   }
